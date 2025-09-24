@@ -150,15 +150,15 @@
             background-color: rgba(59, 130, 246, 0.4);
         }
         
-        /* New Resume Preview Styles */
+        /* Resume Preview Styles */
         #resume-preview-container {
-            background-color: #f3f4f6; /* A light grey for the paper background */
+            background-color: #f3f4f6;
         }
         #resume-preview {
             font-family: Arial, sans-serif;
-            color: #111827; /* Dark gray for text */
-            width: 21cm; /* A4 width */
-            min-height: 29.7cm; /* A4 height */
+            color: #111827;
+            width: 21cm;
+            min-height: 29.7cm;
             padding: 0.5in;
             margin: 1rem auto;
             box-sizing: border-box;
@@ -192,31 +192,9 @@
             text-decoration: none;
         }
 
-        /* Print Styles for Resume Creator */
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #resume-preview-container, #resume-preview-container * {
-                visibility: visible;
-            }
-            #resume-preview-container {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                border: none !important;
-                box-shadow: none !important;
-            }
-            @page {
-                size: A4;
-                margin: 15mm;
-            }
-            #resume-preview {
-                font-family: 'Times New Roman', Times, serif;
-                margin: 0;
-                box-shadow: none;
-            }
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
@@ -225,7 +203,7 @@
     <!-- Header -->
     <header class="glass-pane fixed top-0 left-0 right-0 z-50 h-20">
         <div class="flex items-center justify-between w-full h-full max-w-5xl mx-auto px-4 sm:px-8">
-            <div class="font-bold text-xl text-primary">Hani Bin Faisal Ahammad</div>
+            <a href="#" class="font-bold text-xl text-primary">Hani Bin Faisal Ahammad</a>
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-secondary">
                 <a href="#storyline" class="hover:text-primary transition-colors">My Journey</a>
                 <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
@@ -234,16 +212,35 @@
                 <a href="#resume" class="hover:text-primary transition-colors">Resume</a>
                 <a href="#connect" class="hover:text-primary transition-colors">Connect</a>
             </nav>
-            <button id="theme-toggle" class="w-10 h-10 rounded-full glass-pane flex items-center justify-center">
-                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm-2.12-10.607a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" clip-rule="evenodd" /></svg>
-                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
-            </button>
+            <div class="flex items-center gap-2">
+                 <button id="theme-toggle" class="w-10 h-10 rounded-full glass-pane flex items-center justify-center">
+                    <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm-2.12-10.607a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" clip-rule="evenodd" /></svg>
+                    <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-full glass-pane flex flex-col items-center justify-center gap-1.5">
+                    <span class="w-5 h-0.5 bg-primary transition-transform"></span>
+                    <span class="w-5 h-0.5 bg-primary transition-opacity"></span>
+                    <span class="w-5 h-0.5 bg-primary transition-transform"></span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="w-full max-w-4xl mx-auto pt-28 pb-32 px-4 sm:px-6">
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 glass-pane transform translate-x-full md:hidden">
+        <nav class="flex flex-col items-center justify-center h-full gap-8 text-xl font-medium text-primary">
+            <a href="#storyline" class="mobile-nav-link">My Journey</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#hobbies" class="mobile-nav-link">Hobbies</a>
+            <a href="#achievements" class="mobile-nav-link">Skills</a>
+            <a href="#resume" class="mobile-nav-link">Resume</a>
+            <a href="#connect" class="mobile-nav-link">Connect</a>
+        </nav>
+    </div>
+
+    <main class="w-full max-w-4xl mx-auto pt-24 md:pt-28 pb-28 px-4 sm:px-6">
         <!-- Hero Section -->
-        <section class="text-center py-16">
+        <section class="text-center py-8 sm:py-16">
             <button id="profile-card" class="glass-pane p-4 rounded-3xl w-40 h-40 mb-4 sm:w-48 sm:h-48 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black transition-transform duration-200 hover:scale-105 active:scale-95">
                  <img src="assets/main.png" alt="Hani Bin Faisal Ahammad" class="rounded-2xl w-full h-full object-cover pointer-events-none">
             </button>
@@ -253,27 +250,27 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 md:gap-16 items-start">
             <!-- My Journey / Timeline -->
-            <section id="storyline" class="my-10 scroll-mt-20">
+            <section id="storyline" class="my-10 scroll-mt-24">
                 <div class="glass-pane rounded-3xl p-6 lg:p-8">
                     <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">My Journey</h2>
-                    <div class="relative border-l-2 ml-20" style="border-color: var(--glass-border);">
+                    <div class="relative border-l-2 ml-16 sm:ml-20" style="border-color: var(--glass-border);">
                         <div class="timeline-item mb-10 pl-8" data-year="2024">
-                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
+                            <div class="absolute -left-16 sm:-left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
                             <h3 class="font-bold text-lg text-primary">Higher Secondary</h3>
                             <p class="text-sm text-secondary">Indian School Bahrain (CBSE)</p>
                         </div>
                         <div class="timeline-item mb-10 pl-8" data-year="2024">
-                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
+                            <div class="absolute -left-16 sm:-left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
                             <h3 class="font-bold text-lg text-primary">First Steps in Code</h3>
                             <p class="text-sm text-secondary">Learned Python from Learn Logic AI</p>
                         </div>
                         <div class="timeline-item mb-10 pl-8" data-year="Present">
-                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">Present</div>
+                            <div class="absolute -left-16 sm:-left-20 text-right w-16 text-sm font-semibold text-secondary">Present</div>
                             <h3 class="font-bold text-lg text-primary">Undergraduate Studies</h3>
                             <p class="text-sm text-secondary">Manipal University Jaipur (BBA)</p>
                         </div>
                         <div class="timeline-item pl-8" data-year="Future">
-                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">Future</div>
+                            <div class="absolute -left-16 sm:-left-20 text-right w-16 text-sm font-semibold text-secondary">Future</div>
                             <h3 class="font-bold text-lg text-primary">The Next Chapter</h3>
                             <p class="text-sm text-secondary">Building skills & seeking opportunities.</p>
                         </div>
@@ -282,7 +279,7 @@
             </section>
 
             <!-- Projects Section -->
-            <section id="projects" class="my-10 scroll-mt-20">
+            <section id="projects" class="my-10 scroll-mt-24">
                  <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">Projects</h2>
                 <div class="grid grid-cols-2 gap-4">
                     <button id="wame-tile" class="project-card text-left aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
@@ -314,7 +311,7 @@
         </div>
 
         <!-- Hobbies Section -->
-        <section id="hobbies" class="my-10 scroll-mt-20">
+        <section id="hobbies" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6">
                 <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Hobbies</h2>
                 <div class="grid grid-cols-3 gap-4">
@@ -335,36 +332,40 @@
         </section>
         
         <!-- Achievements & Skills Section -->
-        <section id="achievements" class="my-10 scroll-mt-20">
+        <section id="achievements" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6">
                 <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Achievements & Skills</h2>
                 <div class="mb-8">
                     <h3 class="text-lg font-semibold text-secondary mb-4">Academics</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="glass-pane rounded-2xl p-4 text-center">
-                            <p class="text-2xl font-bold text-primary">77.8%</p>
-                            <p class="text-xs text-secondary">10th Grade (CBSE)</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center">
+                            <div>
+                                <p class="text-2xl font-bold text-primary">77.8%</p>
+                                <p class="text-xs text-secondary">10th Grade (CBSE)</p>
+                            </div>
                         </div>
-                        <div class="glass-pane rounded-2xl p-4 text-center">
-                            <p class="text-2xl font-bold text-primary">80.6%</p>
-                            <p class="text-xs text-secondary">12th Grade (CBSE)</p>
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center">
+                            <div>
+                                <p class="text-2xl font-bold text-primary">80.6%</p>
+                                <p class="text-xs text-secondary">12th Grade (CBSE)</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-semibold text-secondary mb-4">Soft Skills</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Communication</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Creativity</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Problem-Solving</p></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center"><p class="font-semibold text-primary">Communication</p></div>
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center"><p class="font-semibold text-primary">Creativity</p></div>
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center"><p class="font-semibold text-primary">Problem-Solving</p></div>
                     </div>
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-semibold text-secondary mb-4">Hard Skills</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Python Basics</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Web Development</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Selling</p></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center"><p class="font-semibold text-primary">Python Basics</p></div>
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center"><p class="font-semibold text-primary">Web Development</p></div>
+                        <div class="glass-pane rounded-2xl p-4 flex items-center justify-center text-center"><p class="font-semibold text-primary">Selling</p></div>
                     </div>
                 </div>
                 <div class="mt-8">
@@ -396,7 +397,7 @@
         </section>
 
         <!-- Resume Section -->
-        <section id="resume" class="my-10 scroll-mt-20">
+        <section id="resume" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6 text-center">
                 <h3 class="text-2xl font-bold mb-2 text-primary">View My CV</h3>
                 <p class="text-secondary mb-6 max-w-sm mx-auto">For a detailed overview of my experience and qualifications, please feel free to download my resume.</p>
@@ -408,7 +409,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="connect" class="my-10 scroll-mt-20">
+        <section id="connect" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6 text-center">
                 <h3 class="text-2xl font-bold mb-2 text-primary">Let's Connect</h3>
                 <p class="text-secondary mb-6 max-w-sm mx-auto">I'm on a journey of learning and growth. If you'd like to talk about tech, work on a project together, or share any opportunities, I'd love to hear from you.</p>
@@ -519,7 +520,7 @@
     
     <!-- Resume Creator Modal -->
     <div id="resume-creator-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-0 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
-        <div class="modal-content glass-pane w-full h-full p-6 relative transition-all duration-300 ease-out transform scale-95 opacity-0 flex flex-col">
+        <div class="modal-content glass-pane w-full h-full p-4 sm:p-6 relative transition-all duration-300 ease-out transform scale-95 opacity-0 flex flex-col">
             <button class="modal-close-btn absolute top-4 right-4 w-10 h-10 rounded-full glass-pane flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 z-20"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
             <div class="flex items-center justify-between mb-4 flex-shrink-0">
                 <h3 class="text-xl font-bold text-primary">Resume Creator</h3>
@@ -592,17 +593,21 @@
             const themeToggle = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('theme-icon-sun');
             const moonIcon = document.getElementById('theme-icon-moon');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
             
             // --- THEME TOGGLE LOGIC ---
+            // This function now shows the icon representing the CURRENT theme.
             const applyTheme = (theme) => {
                 if (theme === 'light') {
                     document.body.classList.add('light');
-                    sunIcon.classList.add('hidden');
-                    moonIcon.classList.remove('hidden');
+                    sunIcon.classList.remove('hidden'); // Show sun in light mode
+                    moonIcon.classList.add('hidden');
                 } else {
                     document.body.classList.remove('light');
-                    sunIcon.classList.remove('hidden');
-                    moonIcon.classList.add('hidden');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden'); // Show moon in dark mode
                 }
             };
 
@@ -611,10 +616,9 @@
 
             if (savedTheme) {
                 applyTheme(savedTheme);
-            } else if (prefersLight) {
-                applyTheme('light');
             } else {
-                applyTheme('dark');
+                 // Set initial theme based on system preference
+                applyTheme(prefersLight ? 'light' : 'dark');
             }
 
             themeToggle.addEventListener('click', () => {
@@ -622,6 +626,27 @@
                 const newTheme = currentTheme === 'light' ? 'dark' : 'light';
                 localStorage.setItem('theme', newTheme);
                 applyTheme(newTheme);
+            });
+
+            // --- MOBILE MENU LOGIC ---
+            const toggleMobileMenu = () => {
+                const isMenuOpen = mobileMenu.classList.contains('translate-x-0');
+                mobileMenu.classList.toggle('translate-x-full', isMenuOpen);
+                mobileMenu.classList.toggle('translate-x-0', !isMenuOpen);
+                document.body.style.overflow = isMenuOpen ? '' : 'hidden';
+
+                // Hamburger icon animation
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans[0].classList.toggle('rotate-45', !isMenuOpen);
+                spans[0].classList.toggle('translate-y-2', !isMenuOpen);
+                spans[1].classList.toggle('opacity-0', !isMenuOpen);
+                spans[2].classList.toggle('-rotate-45', !isMenuOpen);
+                spans[2].classList.toggle('-translate-y-2', !isMenuOpen);
+            };
+
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
             });
 
             // --- MODAL LOGIC ---
@@ -640,7 +665,10 @@
 
                 const closeModal = () => {
                     modal.classList.remove('active');
-                    document.body.style.overflow = '';
+                    // Only restore body scroll if no other modals are active
+                    if (!document.querySelector('.modal.active')) {
+                        document.body.style.overflow = '';
+                    }
                 };
 
                 trigger.addEventListener('click', openModal);
@@ -692,7 +720,7 @@
                 });
             }
 
-            // --- DYNAMIC RESUME CREATOR LOGIC V6 ---
+            // --- DYNAMIC RESUME CREATOR LOGIC ---
             const resumeForm = document.getElementById('resume-form');
             const printResumeBtn = document.getElementById('print-resume-btn');
             
@@ -733,7 +761,7 @@
                         return `<div class="p-3 rounded-lg glass-pane relative entry flex gap-4 items-center">${commonHTML}
                              <input type="text" data-rc="langName" placeholder="English" class="rc-input flex-grow">
                              <div class="flex gap-1" data-rc="langLevel">
-                                ${[1,2,3,4,5].map(i => `<button data-level="${i}" class="h-3 w-3 rounded-full bg-gray-500/50 proficiency-dot-btn"></button>`).join('')}
+                                 ${[1,2,3,4,5].map(i => `<button data-level="${i}" class="h-3 w-3 rounded-full bg-gray-500/50 proficiency-dot-btn"></button>`).join('')}
                             </div>
                         </div>`;
                 }
@@ -760,8 +788,8 @@
                     const newLevel = (currentLevel == level) ? 0 : level;
 
                     dots.forEach((dot, index) => {
-                       dot.classList.toggle('bg-blue-500', index < newLevel);
-                       dot.classList.toggle('bg-gray-500/50', index >= newLevel);
+                        dot.classList.toggle('bg-blue-500', index < newLevel);
+                        dot.classList.toggle('bg-gray-500/50', index >= newLevel);
                     });
                      e.target.parentElement.dataset.levelValue = newLevel;
                 }
@@ -873,7 +901,7 @@
                                          <p class="text-sm font-semibold text-gray-600">${edu.dates}</p>
                                          <p class="text-sm text-gray-600">${edu.location}</p>
                                      </div>
-                                   </div>`;
+                                 </div>`;
                      });
                      html += `</div>`;
                 }
@@ -910,7 +938,7 @@
                                         <p class="text-sm font-semibold text-gray-600">${exp.dates}</p>
                                      </div>
                                      <p class="text-sm mt-1 text-gray-600">${exp.desc.replace(/\n/g, '<br>')}</p>
-                                  </div>`;
+                                 </div>`;
                     });
                     html += `</div>`;
                 }
