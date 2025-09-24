@@ -159,7 +159,7 @@
             color: #111827; /* Dark gray for text */
             width: 21cm; /* A4 width */
             min-height: 29.7cm; /* A4 height */
-            padding: 1in;
+            padding: 0.5in;
             margin: 1rem auto;
             box-sizing: border-box;
             background-color: white;
@@ -187,14 +187,10 @@
             font-size: 11pt;
             line-height: 1.5;
         }
-        #resume-preview a {
-            color: #3b82f6;
+        #resume-preview .contact-link {
+            color: #111827;
             text-decoration: none;
         }
-        #resume-preview a:hover {
-            text-decoration: underline;
-        }
-
 
         /* Print Styles for Resume Creator */
         @media print {
@@ -527,11 +523,8 @@
                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Personal Details</h4>
                         <input type="text" data-rc="name" placeholder="Full Name" class="rc-input">
                         <input type="text" data-rc="title" placeholder="Job Title (e.g., AI & BBA Student)" class="rc-input mt-2">
-                        <input type="tel" data-rc="phone" placeholder="Phone" class="rc-input mt-2">
-                        <input type="email" data-rc="email" placeholder="Email" class="rc-input mt-2">
-                        <input type="text" data-rc="linkedin" placeholder="LinkedIn Username (e.g., hanibinfaisalahammad)" class="rc-input mt-2">
-                        <input type="text" data-rc="github" placeholder="GitHub Username (e.g., Hani-Bin-Faisal-Ahammad)" class="rc-input mt-2">
-                         <input type="text" data-rc="website" placeholder="Portfolio URL" class="rc-input mt-2">
+                        <div id="personal-details-entries" class="space-y-2 mt-2"></div>
+                        <button id="add-personal-detail-btn" class="add-btn mt-2">+</button>
                     </div>
                     
                     <div class="mt-2">
@@ -573,8 +566,8 @@
                     <div id="language-entries" class="space-y-4"></div>
                 </div>
                 <!-- Preview Area -->
-                <div id="resume-preview-container" class="bg-white text-gray-800 rounded-lg overflow-y-auto">
-                    <div id="resume-preview" class="p-8">
+                <div id="resume-preview-container" class="bg-gray-200 rounded-lg overflow-y-auto">
+                    <div id="resume-preview">
                         <!-- Generated resume will appear here -->
                     </div>
                 </div>
@@ -690,13 +683,25 @@
                 });
             }
 
-            // --- DYNAMIC RESUME CREATOR LOGIC V5 ---
+            // --- DYNAMIC RESUME CREATOR LOGIC V6 ---
             const resumeForm = document.getElementById('resume-form');
             const printResumeBtn = document.getElementById('print-resume-btn');
             
             const createEntryHTML = (type) => {
                 const commonHTML = `<button class="remove-entry-btn absolute top-2 right-2 text-red-400 hover:text-red-600 text-xl font-bold">&times;</button>`;
                 switch(type) {
+                    case 'personalDetail':
+                        return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry flex items-center gap-2">${commonHTML}
+                            <select data-rc="detailType" class="rc-select w-1/3">
+                                <option value="phone">Phone</option>
+                                <option value="email">Email</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="github">GitHub</option>
+                                <option value="website">Website</option>
+                                <option value="location">Location</option>
+                            </select>
+                            <input type="text" data-rc="detailValue" placeholder="Your detail..." class="rc-input w-2/3">
+                        </div>`;
                     case 'experience':
                         return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry">${commonHTML}
                             <input type="text" data-rc="dates" placeholder="July 2024 - Present" class="rc-input">
@@ -759,6 +764,7 @@
 
                 const data = {
                     personal: {},
+                    details: [],
                     experience: [],
                     education: [],
                     techSkills: [],
@@ -767,10 +773,17 @@
                 };
 
                 // Personal Details
-                resumeForm.querySelectorAll('[data-rc-section="personal"] [data-rc]').forEach(el => {
-                    data.personal[el.dataset.rc] = el.value;
+                data.personal.name = resumeForm.querySelector('[data-rc="name"]').value;
+                data.personal.title = resumeForm.querySelector('[data-rc="title"]').value;
+                data.personal.summary = resumeForm.querySelector('[data-rc="summary"]').value;
+                
+                // Dynamic Personal Details
+                document.querySelectorAll('#personal-details-entries .entry').forEach(entry => {
+                    data.details.push({
+                        type: entry.querySelector('[data-rc="detailType"]').value,
+                        value: entry.querySelector('[data-rc="detailValue"]').value
+                    });
                 });
-                data.personal.summary = resumeForm.querySelector('[data-rc="summary"]').value; 
                 
                 // Dynamic Entries
                 document.querySelectorAll('#experience-entries .entry').forEach(entry => {
@@ -799,18 +812,27 @@
                 // --- Build HTML ---
                 const preview = document.getElementById('resume-preview');
                 const p = data.personal;
+
+                const detailIcons = {
+                    phone: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>',
+                    email: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/></svg>',
+                    linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.325 0-1.934.716-2.261 1.256h.016l.016-.022V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>',
+                    github: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>',
+                    website: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/></svg>',
+                    location: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>'
+                }
                 
-                 const contactInfo = [
-                    p.phone,
-                    p.linkedin ? `<a href="https://linkedin.com/in/${p.linkedin}" target="_blank">linkedin.com/in/${p.linkedin}</a>` : '',
-                    p.website ? `<a href="${p.website}" target="_blank">${p.website}</a>` : '',
-                    p.email ? `<a href="mailto:${p.email}">${p.email}</a>` : '',
-                    p.github ? `<a href="https://github.com/${p.github}" target="_blank">github.com/${p.github}</a>` : ''
-                ].filter(Boolean).map(item => `<span>${item}</span>`).join(' &bull; ');
+                 const contactInfo = data.details.map(detail => {
+                    if (!detail.value) return '';
+                    return `<div class="flex items-center justify-center gap-2">
+                                ${detailIcons[detail.type] || ''}
+                                <span class="contact-link">${detail.value}</span>
+                            </div>`;
+                }).filter(Boolean).join('');
 
                 let html = `<div class="text-center">
                                 <h1>${p.name || 'Your Name'}</h1>
-                                <p class="text-xs text-gray-700 mt-2">${contactInfo}</p>
+                                <div class="grid grid-cols-2 gap-x-8 gap-y-1 text-xs text-gray-700 mt-2">${contactInfo}</div>
                             </div>`;
 
                 if(p.summary) html += `<div class="mt-4"><h2>PROFILE</h2><p class="section-content text-sm">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
@@ -878,12 +900,24 @@
             const setDefaultResumeData = () => {
                 const form = document.getElementById('resume-form');
                 form.querySelector('[data-rc="name"]').value = "Hani Bin Faisal Ahammad";
-                form.querySelector('[data-rc="phone"]').value = "+973 35433013";
-                form.querySelector('[data-rc="linkedin"]').value = "hani-bin-faisal-ahammad";
-                form.querySelector('[data-rc="website"]').value = "hanibinfaisalahammad.vercel.app";
-                form.querySelector('[data-rc="github"]').value = "Hani-Bin-Faisal-Ahammad";
-                form.querySelector('[data-rc="email"]').value = "hanibinfaisalahammad@gmail.com";
+                form.querySelector('[data-rc="title"]').value = "AI & BBA Student";
                 form.querySelector('[data-rc="summary"]').value = "Dedicated and enthusiastic AI student with a passion for machine learning and data science. Proficient in Python and eager to apply my skills to real-world problems. Is a creative and analytical thinker with a keen eye for detailed analytics. Possess excellent problem-solving and communication skills. Committed to lifelong learning and eager to collaborate with talented individuals.";
+
+                // Personal Details
+                const personalDetailsData = [
+                    { type: 'phone', value: '+973 35433013' },
+                    { type: 'email', value: 'hanibinfaisalahammad@gmail.com' },
+                    { type: 'linkedin', value: 'hani-bin-faisal-ahammad' },
+                    { type: 'github', value: 'Hani-Bin-Faisal-Ahammad' },
+                    { type: 'website', value: 'hanibinfaisalahammad.vercel.app' },
+                    { type: 'location', value: 'Vatakara, Kerala, India' }
+                ];
+                personalDetailsData.forEach(detail => {
+                    addEntry('personalDetail', 'personal-details-entries');
+                    const entry = form.querySelector('#personal-details-entries .entry:last-child');
+                    entry.querySelector('[data-rc="detailType"]').value = detail.type;
+                    entry.querySelector('[data-rc="detailValue"]').value = detail.value;
+                });
 
                 // Education Entries
                 ['Learn Logic AI', 'Manipal University Jaipur', 'The Indian School Bahrain'].forEach(school => addEntry('education', 'education-entries'));
@@ -934,13 +968,36 @@
                 langHi.querySelector('[data-rc="langLevel"]').dataset.levelValue = 3;
                 langHi.querySelectorAll('.proficiency-dot-btn').forEach((d,i) => d.classList.toggle('bg-blue-500', i < 3));
 
+                generateResumePreview();
+            };
 
+            const handleSummaryInput = () => {
+                const summaryTextarea = resumeForm.querySelector('[data-rc="summary"]');
+                const wordCountSpan = document.getElementById('summary-word-count');
+                const MAX_WORDS = 50;
+
+                const text = summaryTextarea.value;
+                const words = text.trim().split(/\s+/).filter(Boolean);
+                let wordCount = words.length;
+
+                if (wordCount > MAX_WORDS) {
+                    const truncatedWords = words.slice(0, MAX_WORDS);
+                    summaryTextarea.value = truncatedWords.join(' ');
+                    wordCount = MAX_WORDS;
+                }
+
+                wordCountSpan.textContent = `${wordCount} / ${MAX_WORDS} words`;
+                wordCountSpan.style.color = wordCount >= MAX_WORDS ? 'var(--accent-color)' : 'var(--text-secondary)';
+                
                 generateResumePreview();
             };
 
             if (resumeForm) {
                 resumeForm.addEventListener('input', generateResumePreview);
                 resumeForm.addEventListener('click', handleFormClick);
+                resumeForm.querySelector('[data-rc="summary"]').addEventListener('input', handleSummaryInput);
+
+                document.getElementById('add-personal-detail-btn').addEventListener('click', () => addEntry('personalDetail', 'personal-details-entries'));
                 document.getElementById('add-experience-btn').addEventListener('click', () => addEntry('experience', 'experience-entries'));
                 document.getElementById('add-education-btn').addEventListener('click', () => addEntry('education', 'education-entries'));
                 document.getElementById('add-tech-skill-btn').addEventListener('click', () => addEntry('techSkill', 'tech-skill-entries'));
@@ -954,7 +1011,7 @@
                 printResumeBtn.addEventListener('click', () => {
                      const element = document.getElementById('resume-preview');
                      const opt = {
-                      margin:       1,
+                      margin:       0.5,
                       filename:     'Hani_Ahammad_Resume.pdf',
                       image:        { type: 'jpeg', quality: 0.98 },
                       html2canvas:  { scale: 2, useCORS: true },
@@ -993,4 +1050,3 @@
     </script>
 </body>
 </html>
-
