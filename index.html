@@ -108,7 +108,7 @@
         }
 
         /* Resume Creator Input Styling */
-        .rc-input {
+        .rc-input, .rc-select {
             width: 100%;
             margin-top: 0.25rem;
             padding: 0.75rem;
@@ -118,11 +118,22 @@
             color: var(--text-primary);
             transition: all 0.3s ease;
         }
-        .rc-input::placeholder {
+        .rc-select {
+             -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a3a3a3' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+        }
+        body.light .rc-select {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233C3C43' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+        }
+        .rc-input::placeholder, .rc-select {
             color: var(--text-secondary);
             opacity: 0.7;
         }
-        .rc-input:focus {
+        .rc-input:focus, .rc-select:focus {
             outline: none;
             box-shadow: 0 0 0 2px var(--accent-color);
         }
@@ -207,6 +218,8 @@
             }
             #resume-preview {
                 font-family: 'Times New Roman', Times, serif;
+                margin: 0;
+                box-shadow: none;
             }
         }
     </style>
@@ -521,8 +534,13 @@
                          <input type="text" data-rc="website" placeholder="Portfolio URL" class="rc-input mt-2">
                     </div>
                     
-                    <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2 mt-2">Profile / Summary</h4>
-                    <textarea data-rc="summary" rows="8" placeholder="A passionate and driven student..." class="rc-input"></textarea>
+                    <div class="mt-2">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Profile / Summary</h4>
+                            <span id="summary-word-count" class="text-xs text-secondary">0 / 50 words</span>
+                        </div>
+                        <textarea data-rc="summary" rows="8" placeholder="A passionate and driven student..." class="rc-input"></textarea>
+                    </div>
 
                     <div class="flex justify-between items-center mt-2">
                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Education</h4>
@@ -672,7 +690,7 @@
                 });
             }
 
-                // --- DYNAMIC RESUME CREATOR LOGIC V4 ---
+            // --- DYNAMIC RESUME CREATOR LOGIC V5 ---
             const resumeForm = document.getElementById('resume-form');
             const printResumeBtn = document.getElementById('print-resume-btn');
             
@@ -752,7 +770,7 @@
                 resumeForm.querySelectorAll('[data-rc-section="personal"] [data-rc]').forEach(el => {
                     data.personal[el.dataset.rc] = el.value;
                 });
-                data.personal.summary = resumeForm.querySelector('[data-rc="summary"]').value; // FIX: Get summary value
+                data.personal.summary = resumeForm.querySelector('[data-rc="summary"]').value; 
                 
                 // Dynamic Entries
                 document.querySelectorAll('#experience-entries .entry').forEach(entry => {
@@ -791,18 +809,18 @@
                 ].filter(Boolean).map(item => `<span>${item}</span>`).join(' &bull; ');
 
                 let html = `<div class="text-center">
-                                <h1 class="text-4xl font-bold text-black">${p.name || 'Your Name'}</h1>
+                                <h1>${p.name || 'Your Name'}</h1>
                                 <p class="text-xs text-gray-700 mt-2">${contactInfo}</p>
                             </div>`;
 
-                if(p.summary) html += `<div class="mt-4"><h2 class="section-title">PROFILE</h2><p class="section-content text-sm">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
+                if(p.summary) html += `<div class="mt-4"><h2>PROFILE</h2><p class="section-content text-sm">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
 
                 if(data.education.length > 0 && data.education[0].degree) {
-                     html += `<div class="mt-4"><h2 class="section-title">EDUCATION</h2>`;
+                     html += `<div class="mt-4"><h2>EDUCATION</h2>`;
                      data.education.forEach(edu => {
                          html += `<div class="flex justify-between mt-2">
                                      <div>
-                                         <h3 class="font-bold text-black">${edu.school}</h3>
+                                         <h3>${edu.school}</h3>
                                          <p class="text-sm italic text-gray-700">${edu.degree}</p>
                                      </div>
                                      <div class="text-right">
@@ -815,22 +833,22 @@
                 }
 
                  if(data.techSkills.length > 0 && data.techSkills[0]) {
-                    html += `<div class="mt-4"><h2 class="section-title">TECHNICAL SKILLS</h2><div class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2">`;
+                    html += `<div class="mt-4"><h2>TECHNICAL SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
                     data.techSkills.forEach(skill => {
                          if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
                     });
-                    html += `</div></div>`;
+                    html += `</ul></div>`;
                 }
                 if(data.softSkills.length > 0 && data.softSkills[0]) {
-                    html += `<div class="mt-4"><h2 class="section-title">SOFT SKILLS</h2><div class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2">`;
+                    html += `<div class="mt-4"><h2>SOFT SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
                     data.softSkills.forEach(skill => {
                          if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
                     });
-                    html += `</div></div>`;
+                    html += `</ul></div>`;
                 }
                 
                 if (data.languages.length > 0 && data.languages[0].name) {
-                    html += `<div class="mt-4"><h2 class="section-title">LANGUAGES</h2><div class="flex gap-x-8 gap-y-2 mt-2">`;
+                    html += `<div class="mt-4"><h2>LANGUAGES</h2><div class="flex gap-x-8 gap-y-2 mt-2">`;
                     data.languages.forEach(lang => {
                          if (lang.name) html += `<div class="flex items-center gap-2"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
                     });
@@ -838,11 +856,11 @@
                 }
                 
                 if(data.experience.length > 0 && data.experience[0].job) {
-                    html += `<div class="mt-4"><h2 class="section-title">PROJECTS</h2>`;
+                    html += `<div class="mt-4"><h2>PROJECTS</h2>`;
                     data.experience.forEach(exp => {
                          html += `<div class="mt-2">
                                      <div class="flex justify-between">
-                                        <h3 class="font-bold text-black">${exp.job}</h3>
+                                        <h3>${exp.job}</h3>
                                         <p class="text-sm font-semibold text-gray-600">${exp.dates}</p>
                                      </div>
                                      <p class="text-sm mt-1 text-gray-600">${exp.desc.replace(/\n/g, '<br>')}</p>
@@ -851,7 +869,7 @@
                     html += `</div>`;
                 }
 
-                html += `<div class="mt-4"><h2 class="section-title">DECLARATION</h2><p class="text-sm text-gray-700">I declare that the information presented in this resume is true and accurate to the best of my knowledge. I assure you that my experience, skills, and qualifications meet the requirements of the job.</p></div>`
+                html += `<div class="mt-4"><h2>DECLARATION</h2><p class="text-sm text-gray-700">I declare that the information presented in this resume is true and accurate to the best of my knowledge. I assure you that my experience, skills, and qualifications meet the requirements of the job.</p></div>`
 
 
                 preview.innerHTML = html;
@@ -975,6 +993,4 @@
     </script>
 </body>
 </html>
-
-
 
