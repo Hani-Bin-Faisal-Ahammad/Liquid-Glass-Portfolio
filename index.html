@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hani Bin Faisal | Digital Portfolio</title>
+    <title>Hani Bin Faisal Ahammad | Digital Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,9 +17,6 @@
             --text-primary: #f5f5f5;
             --text-secondary: #a3a3a3;
             --accent-color: #3b82f6;
-            --shell-bg: #050505;
-            --shell-border: #1a1a1a;
-            --shell-shadow: rgba(0, 0, 0, 0.5);
             --content-bg: #000000;
             --dock-icon-bg: rgba(55, 55, 55, 0.7);
         }
@@ -31,9 +28,6 @@
             --glass-border: rgba(0, 0, 0, 0.08);
             --text-primary: #1d1d1f;
             --text-secondary: rgba(60, 60, 67, 0.6);
-            --shell-bg: #e5e5e5;
-            --shell-border: #f5f5f5;
-            --shell-shadow: rgba(0, 0, 0, 0.15);
             --content-bg: #f9f9fb;
             --dock-icon-bg: rgba(209, 213, 219, 0.5);
         }
@@ -55,32 +49,7 @@
             transition: all 0.3s ease;
         }
         
-        .bg-content { background-color: var(--content-bg); }
         .dock-icon { background-color: var(--dock-icon-bg); }
-
-        .iphone-shell {
-            background: var(--shell-bg);
-            border-width: 8px;
-            border-color: var(--shell-border);
-            box-shadow: 0 25px 50px -12px var(--shell-shadow), inset 0 2px 4px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        /* Dynamic Island Simulation */
-        .dynamic-island {
-            background: var(--content-bg);
-            transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-        
-        .island-content {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s;
-        }
-
-        .dynamic-island.expanded .island-content {
-            opacity: 1;
-            transform: scale(1);
-        }
 
         /* Perspective Project Cards */
         .project-card, .hobby-tile {
@@ -107,22 +76,12 @@
         .project-card:hover .project-card-glow {
             opacity: 1;
         }
-
-        /* Timeline dot removed for a cleaner look */
         
         /* Custom text color classes for theme switching */
         .text-primary { color: var(--text-primary); }
         .text-secondary { color: var(--text-secondary); }
         .text-accent { color: var(--accent-color); }
         .hover\:text-primary:hover { color: var(--text-primary); }
-
-        /* Desktop Layout Transformations */
-        @media (min-width: 1024px) {
-            .dynamic-island {
-                background: var(--glass-color);
-                border-bottom: 1px solid var(--glass-border);
-            }
-        }
         
         /* Modal Styles */
         .modal.active {
@@ -139,197 +98,185 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 lg:p-0">
+<body>
 
-    <main class="iphone-shell w-full max-w-sm h-[800px] rounded-[50px] p-2.5 flex flex-col transition-all duration-300 lg:bg-transparent lg:border-none lg:shadow-none lg:p-0 lg:max-w-none lg:h-screen lg:rounded-none">
-        <div class="bg-content w-full h-full rounded-[40px] relative overflow-hidden lg:rounded-none lg:bg-transparent">
-            <!-- Background Gradient -->
-            <div class="absolute inset-0 bg-cover bg-center lg:hidden" style="background-image: url('https://placehold.co/400x800/0a0a0a/1f1f1f?text=');">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20"></div>
-            </div>
-            
-            <!-- Dynamic Island / Desktop Header -->
-            <div id="dynamic-island" class="dynamic-island absolute top-4 left-1/2 -translate-x-1/2 z-50 w-[120px] h-8 rounded-2xl lg:w-full lg:h-20 lg:rounded-none lg:top-0 lg:left-0 lg:translate-x-0">
-                <!-- Mobile Content -->
-                <div id="island-content-mobile" class="island-content w-full h-full flex items-center justify-center text-primary text-sm px-4 lg:hidden">
-                    <p id="island-text"></p>
-                </div>
-                <!-- Desktop Content -->
-                <div class="hidden lg:flex items-center justify-between w-full h-full max-w-5xl mx-auto px-8">
-                    <div class="font-bold text-xl text-primary">Hani Bin Faisal</div>
-                    <div class="flex items-center gap-6 text-sm font-medium text-secondary">
-                        <a href="#storyline" class="hover:text-primary transition-colors">My Journey</a>
-                        <a href="#perspective" class="hover:text-primary transition-colors">Perspective</a>
-                        <a href="#hobbies" class="hover:text-primary transition-colors">Hobbies</a>
-                        <a href="#achievements" class="hover:text-primary transition-colors">Skills</a>
-                        <a href="#resume" class="hover:text-primary transition-colors">Resume</a>
-                        <a href="#connect" class="hover:text-primary transition-colors">Connect</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- iOS UI Elements (Time, Battery) -->
-            <div class="absolute top-4 left-8 text-sm font-semibold lg:hidden">9:41</div>
-             <div class="absolute top-4 right-8 flex items-center gap-2 text-sm lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reception-4" viewBox="0 0 16 16"><path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-11z"/></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-battery-full" viewBox="0 0 16 16"><path d="M2 6h10v4H2V6z"/><path d="M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm13 1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-1v-4h1z"/></svg>
-            </div>
-            
-            <!-- Theme Toggle -->
-            <div class="absolute top-3.5 right-8 z-50 lg:top-6 lg:right-8">
-                <button id="theme-toggle" class="w-10 h-10 rounded-full glass-pane flex items-center justify-center">
-                    <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm-2.12-10.607a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" clip-rule="evenodd" /></svg>
-                    <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
-                </button>
-            </div>
-            
-            <div id="scroll-container" class="h-full w-full overflow-y-auto pt-16 pb-20 px-6 scroll-smooth lg:pt-28 lg:px-8">
-                <div class="max-w-4xl mx-auto">
-                    <!-- Hero Section -->
-                    <section class="text-center h-64 flex flex-col justify-center items-center lg:h-auto lg:py-16">
-                        <button id="profile-card" class="glass-pane p-4 rounded-3xl w-40 h-40 mb-4 lg:w-48 lg:h-48 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black transition-transform duration-200 hover:scale-105 active:scale-95">
-                             <img src="assets/main.png" alt="Hani Bin Faisal" class="rounded-2xl w-full h-full object-cover pointer-events-none">
-                        </button>
-                        <h1 class="text-3xl font-bold lg:text-5xl lg:mt-6 text-primary">Hani Bin Faisal</h1>
-                        <p class="text-md text-accent lg:text-xl">Software Developer</p>
-                    </section>
-
-                    <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
-                        <!-- My Journey / Timeline -->
-                        <section id="storyline" class="my-10">
-                            <div class="glass-pane rounded-3xl p-6 lg:p-8">
-                                <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">My Journey</h2>
-                                <div class="relative border-l-2 ml-20" style="border-color: var(--glass-border);">
-                                    <div class="timeline-item mb-10 pl-8" data-year="2024" data-text="Completed 12th grade from Indian School Bahrain, establishing a strong academic foundation.">
-                                        <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
-                                        <h3 class="font-bold text-lg text-primary">Higher Secondary</h3>
-                                        <p class="text-sm text-secondary">Indian School Bahrain (CBSE)</p>
-                                    </div>
-                                    <div class="timeline-item mb-10 pl-8" data-year="2024" data-text="Acquired foundational programming skills by completing a Python course with Learn Logic AI.">
-                                        <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
-                                        <h3 class="font-bold text-lg text-primary">First Steps in Code</h3>
-                                        <p class="text-sm text-secondary">Learned Python from Learn Logic AI</p>
-                                    </div>
-                                    <div class="timeline-item mb-10 pl-8" data-year="Present" data-text="Pursuing a Bachelor of Business Administration to complement technical skills with business acumen.">
-                                        <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">Present</div>
-                                        <h3 class="font-bold text-lg text-primary">Undergraduate Studies</h3>
-                                        <p class="text-sm text-secondary">Manipal University Jaipur (BBA)</p>
-                                    </div>
-                                    <div class="timeline-item pl-8" data-year="Future" data-text="Actively learning MERN stack and seeking opportunities to build impactful digital experiences.">
-                                        <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">Future</div>
-                                        <h3 class="font-bold text-lg text-primary">The Next Chapter</h3>
-                                        <p class="text-sm text-secondary">Building skills & seeking opportunities.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Perspective Projects -->
-                        <section id="perspective" class="my-10">
-                             <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">Perspective</h2>
-                            <div class="grid grid-cols-2 gap-4">
-                                <a href="https://hanibinfaisalahammad.vercel.app/project1" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
-                                    <div class="project-card-glow"></div>
-                                    <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=TMDB" class="absolute inset-0 w-full h-full object-cover opacity-20">
-                                    <h4 class="font-bold text-primary relative z-10">TMDB Clone</h4>
-                                    <p class="text-xs text-secondary relative z-10">React & API</p>
-                                </a>
-                                 <a href="https://hanibinfaisalahammad.vercel.app/project2" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
-                                    <div class="project-card-glow"></div>
-                                    <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=Shoe" class="absolute inset-0 w-full h-full object-cover opacity-20">
-                                    <h4 class="font-bold text-primary relative z-10">E-Commerce</h4>
-                                     <p class="text-xs text-secondary relative z-10">MERN Stack</p>
-                                </a>
-                            </div>
-                        </section>
-                    </div>
-
-                    <!-- Hobbies Section -->
-                    <section id="hobbies" class="my-10">
-                        <div class="glass-pane rounded-3xl p-6">
-                            <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Hobbies</h2>
-                            <div class="grid grid-cols-3 gap-4">
-                                <button id="anime-tile" class="hobby-tile aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-center items-center text-center gap-2 relative overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-95">
-                                    <svg class="w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.52c.87-.24 1.5-.95 2.13-1.67.6-.7 1.3-1.44 2.27-1.44s1.67.74 2.27 1.44c.63.72 1.26 1.43 2.13 1.67C20.69 11.02 18 13 18 13s-2.69-1.98-4.5-6.48zM12 6.52C11.13 6.28 10.5.55 9.87-.17 9.27-.9 8.57-1.64 7.6-1.64s-1.67.74-2.27 1.44c-.63.72-1.26 1.43-2.13 1.67C1.31 11.02 4 13 4 13s2.69-1.98 4.5-6.48z"/><path d="M18 13c-2.09 3.49-2.09 7.51 0 11"/><path d="M6 13c2.09 3.49 2.09 7.51 0 11"/><path d="M12 22c-2.9-4-2.5-5.5-1-8"/></svg>
-                                    <h4 class="font-bold text-sm text-primary relative z-10">Anime</h4>
-                                </button>
-                                 <button id="drawing-tile" class="hobby-tile aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-center items-center text-center gap-2 relative overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-95">
-                                    <svg class="w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497L21.174 6.812z"/><path d="m15 5-3 3"/></svg>
-                                    <h4 class="font-bold text-sm text-primary relative z-10">Drawing</h4>
-                                </button>
-                                 <button id="books-tile" class="hobby-tile aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-center items-center text-center gap-2 relative overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-95">
-                                    <svg class="w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-                                    <h4 class="font-bold text-sm text-primary relative z-10">Books</h4>
-                                </button>
-                            </div>
-                        </div>
-                    </section>
-                    
-                    <!-- Achievements & Skills Section -->
-                    <section id="achievements" class="my-10">
-                        <div class="glass-pane rounded-3xl p-6">
-                            <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Achievements & Skills</h2>
-                            <div class="mb-8">
-                                <h3 class="text-lg font-semibold text-secondary mb-4">Academics</h3>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div class="glass-pane rounded-2xl p-4 text-center">
-                                        <p class="text-2xl font-bold text-primary">XX%</p>
-                                        <p class="text-xs text-secondary">10th Grade (CBSE)</p>
-                                    </div>
-                                    <div class="glass-pane rounded-2xl p-4 text-center">
-                                        <p class="text-2xl font-bold text-primary">XX%</p>
-                                        <p class="text-xs text-secondary">12th Grade (CBSE)</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-secondary mb-4">Skills</h3>
-                                <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                                    <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Python</p></div>
-                                    <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">MERN Stack</p></div>
-                                    <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Web Design</p></div>
-                                    <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">English Fluency</p></div>
-                                    <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Hindi Fluency</p></div>
-                                    <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Driving License</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Resume Section -->
-                    <section id="resume" class="my-10">
-                        <div class="glass-pane rounded-3xl p-6 text-center">
-                            <h3 class="text-2xl font-bold mb-2 text-primary">View My CV</h3>
-                            <p class="text-secondary mb-6 max-w-sm mx-auto">For a detailed overview of my experience and qualifications, please feel free to download my resume.</p>
-                            <a href="#" download="Hani_Bin_Faisal_Resume.pdf" class="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
-                                Download CV
-                            </a>
-                        </div>
-                    </section>
-
-                    <!-- Contact Section -->
-                    <section id="connect" class="my-10">
-                        <div class="glass-pane rounded-3xl p-6 text-center">
-                            <h3 class="text-2xl font-bold mb-2 text-primary">Let's Connect</h3>
-                            <p class="text-secondary mb-6 max-w-sm mx-auto">I'm on a journey of learning and growth. If you'd like to talk about tech, work on a project together, or share any opportunities, I'd love to hear from you.</p>
-                            <a href="mailto:hanibinfaisal@gmail.com" class="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition-all">
-                                Get in Touch
-                            </a>
-                        </div>
-                    </section>
-                </div>
-            </div>
-
-            <!-- Dock -->
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[95%] h-20 glass-pane rounded-3xl flex items-center justify-center gap-4 px-4 lg:w-auto lg:gap-6">
-                <a href="https://github.com/hanibinfaisal" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-github text-primary" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
-                <a href="https://www.linkedin.com/in/hani-bin-faisal-ahammad-465a36217/" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-linkedin text-primary" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.325 0-1.934.716-2.261 1.256h.016l.016-.022V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg></a>
-                <a href="https://instagram.com" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram text-primary" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.442c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.232s.008-2.389.046-3.232c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.843-.038 1.096-.047 3.232-.047zM8 4.938a3.062 3.062 0 1 0 0 6.125 3.062 3.062 0 0 0 0-6.125zm0 4.688a1.625 1.625 0 1 1 0-3.25 1.625 1.625 0 0 1 0 3.25zm5.062-5.468a.938.938 0 1 0 0-1.875.938.938 0 0 0 0 1.875z"/></svg></a>
-                <a href="https://hanibinfaisalahammad.vercel.app/" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-link-45deg text-primary" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/></svg></a>
-            </div>
+    <!-- Header -->
+    <header class="glass-pane fixed top-0 left-0 right-0 z-50 h-20">
+        <div class="flex items-center justify-between w-full h-full max-w-5xl mx-auto px-4 sm:px-8">
+            <div class="font-bold text-xl text-primary">Hani Bin Faisal Ahammad</div>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-secondary">
+                <a href="#storyline" class="hover:text-primary transition-colors">My Journey</a>
+                <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+                <a href="#hobbies" class="hover:text-primary transition-colors">Hobbies</a>
+                <a href="#achievements" class="hover:text-primary transition-colors">Skills</a>
+                <a href="#resume" class="hover:text-primary transition-colors">Resume</a>
+                <a href="#connect" class="hover:text-primary transition-colors">Connect</a>
+            </nav>
+            <button id="theme-toggle" class="w-10 h-10 rounded-full glass-pane flex items-center justify-center">
+                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm-2.12-10.607a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" clip-rule="evenodd" /></svg>
+                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+            </button>
         </div>
+    </header>
+
+    <main class="w-full max-w-4xl mx-auto pt-28 pb-32 px-4 sm:px-6">
+        <!-- Hero Section -->
+        <section class="text-center py-16">
+            <button id="profile-card" class="glass-pane p-4 rounded-3xl w-40 h-40 mb-4 sm:w-48 sm:h-48 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black transition-transform duration-200 hover:scale-105 active:scale-95">
+                 <img src="assets/main.png" alt="Hani Bin Faisal Ahammad" class="rounded-2xl w-full h-full object-cover pointer-events-none">
+            </button>
+            <h1 class="text-3xl sm:text-5xl font-bold mt-6 text-primary">Hani Bin Faisal Ahammad</h1>
+            <p class="text-md sm:text-xl text-accent">AI & BBA Student</p>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 md:gap-16 items-start">
+            <!-- My Journey / Timeline -->
+            <section id="storyline" class="my-10">
+                <div class="glass-pane rounded-3xl p-6 lg:p-8">
+                    <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">My Journey</h2>
+                    <div class="relative border-l-2 ml-20" style="border-color: var(--glass-border);">
+                        <div class="timeline-item mb-10 pl-8" data-year="2024">
+                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
+                            <h3 class="font-bold text-lg text-primary">Higher Secondary</h3>
+                            <p class="text-sm text-secondary">Indian School Bahrain (CBSE)</p>
+                        </div>
+                        <div class="timeline-item mb-10 pl-8" data-year="2024">
+                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">2024</div>
+                            <h3 class="font-bold text-lg text-primary">First Steps in Code</h3>
+                            <p class="text-sm text-secondary">Learned Python from Learn Logic AI</p>
+                        </div>
+                        <div class="timeline-item mb-10 pl-8" data-year="Present">
+                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">Present</div>
+                            <h3 class="font-bold text-lg text-primary">Undergraduate Studies</h3>
+                            <p class="text-sm text-secondary">Manipal University Jaipur (BBA)</p>
+                        </div>
+                        <div class="timeline-item pl-8" data-year="Future">
+                            <div class="absolute -left-20 text-right w-16 text-sm font-semibold text-secondary">Future</div>
+                            <h3 class="font-bold text-lg text-primary">The Next Chapter</h3>
+                            <p class="text-sm text-secondary">Building skills & seeking opportunities.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="my-10">
+                 <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">Projects</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="https://hanibinfaisalahammad.vercel.app/project1" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
+                        <div class="project-card-glow"></div>
+                        <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=TMDB" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <h4 class="font-bold text-primary relative z-10">TMDB Clone</h4>
+                        <p class="text-xs text-secondary relative z-10">React & API</p>
+                    </a>
+                     <a href="https://hanibinfaisalahammad.vercel.app/project2" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
+                        <div class="project-card-glow"></div>
+                        <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=Shoe" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <h4 class="font-bold text-primary relative z-10">E-Commerce</h4>
+                         <p class="text-xs text-secondary relative z-10">MERN Stack</p>
+                    </a>
+                    <a href="#" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
+                        <div class="project-card-glow"></div>
+                        <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=New" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <h4 class="font-bold text-primary relative z-10">New Project</h4>
+                         <p class="text-xs text-secondary relative z-10">Coming Soon</p>
+                    </a>
+                    <a href="#" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
+                        <div class="project-card-glow"></div>
+                        <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=Next" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <h4 class="font-bold text-primary relative z-10">Next Big Idea</h4>
+                         <p class="text-xs text-secondary relative z-10">In Progress</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Hobbies Section -->
+        <section id="hobbies" class="my-10">
+            <div class="glass-pane rounded-3xl p-6">
+                <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Hobbies</h2>
+                <div class="grid grid-cols-3 gap-4">
+                    <button id="anime-tile" class="hobby-tile aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-center items-center text-center gap-2 relative overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-95">
+                        <svg class="w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.52c.87-.24 1.5-.95 2.13-1.67.6-.7 1.3-1.44 2.27-1.44s1.67.74 2.27 1.44c.63.72 1.26 1.43 2.13 1.67C20.69 11.02 18 13 18 13s-2.69-1.98-4.5-6.48zM12 6.52C11.13 6.28 10.5.55 9.87-.17 9.27-.9 8.57-1.64 7.6-1.64s-1.67.74-2.27 1.44c-.63.72-1.26 1.43-2.13 1.67C1.31 11.02 4 13 4 13s2.69-1.98 4.5-6.48z"/><path d="M18 13c-2.09 3.49-2.09 7.51 0 11"/><path d="M6 13c2.09 3.49 2.09 7.51 0 11"/><path d="M12 22c-2.9-4-2.5-5.5-1-8"/></svg>
+                        <h4 class="font-bold text-sm text-primary relative z-10">Anime</h4>
+                    </button>
+                     <button id="drawing-tile" class="hobby-tile aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-center items-center text-center gap-2 relative overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-95">
+                        <svg class="w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497L21.174 6.812z"/><path d="m15 5-3 3"/></svg>
+                        <h4 class="font-bold text-sm text-primary relative z-10">Drawing</h4>
+                    </button>
+                     <button id="books-tile" class="hobby-tile aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-center items-center text-center gap-2 relative overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-95">
+                        <svg class="w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                        <h4 class="font-bold text-sm text-primary relative z-10">Books</h4>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Achievements & Skills Section -->
+        <section id="achievements" class="my-10">
+            <div class="glass-pane rounded-3xl p-6">
+                <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Achievements & Skills</h2>
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Academics</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-pane rounded-2xl p-4 text-center">
+                            <p class="text-2xl font-bold text-primary">77.8%</p>
+                            <p class="text-xs text-secondary">10th Grade (CBSE)</p>
+                        </div>
+                        <div class="glass-pane rounded-2xl p-4 text-center">
+                            <p class="text-2xl font-bold text-primary">80.6%</p>
+                            <p class="text-xs text-secondary">12th Grade (CBSE)</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Skills</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Python</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">MERN Stack</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Web Design</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">English Fluency</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Hindi Fluency</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Driving License</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="my-10">
+            <div class="glass-pane rounded-3xl p-6 text-center">
+                <h3 class="text-2xl font-bold mb-2 text-primary">View My CV</h3>
+                <p class="text-secondary mb-6 max-w-sm mx-auto">For a detailed overview of my experience and qualifications, please feel free to download my resume.</p>
+                <a href="#" download="Hani_Bin_Faisal_Ahammad_Resume.pdf" class="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+                    Download CV
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="connect" class="my-10">
+            <div class="glass-pane rounded-3xl p-6 text-center">
+                <h3 class="text-2xl font-bold mb-2 text-primary">Let's Connect</h3>
+                <p class="text-secondary mb-6 max-w-sm mx-auto">I'm on a journey of learning and growth. If you'd like to talk about tech, work on a project together, or share any opportunities, I'd love to hear from you.</p>
+                <a href="mailto:hanibinfaisal@gmail.com" class="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition-all">
+                    Get in Touch
+                </a>
+            </div>
+        </section>
     </main>
+    
+    <!-- Dock -->
+    <footer class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+        <div class="glass-pane rounded-3xl flex items-center justify-center gap-2 sm:gap-4 px-4 py-2">
+            <a href="https://github.com/hanibinfaisal" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-github text-primary" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+            <a href="https://www.linkedin.com/in/hani-bin-faisal-ahammad-465a36217/" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-linkedin text-primary" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.325 0-1.934.716-2.261 1.256h.016l.016-.022V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg></a>
+            <a href="https://instagram.com" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram text-primary" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.442c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.232s.008-2.389.046-3.232c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.843-.038 1.096-.047 3.232-.047zM8 4.938a3.062 3.062 0 1 0 0 6.125 3.062 3.062 0 0 0 0-6.125zm0 4.688a1.625 1.625 0 1 1 0-3.25 1.625 1.625 0 0 1 0 3.25zm5.062-5.468a.938.938 0 1 0 0-1.875.938.938 0 0 0 0 1.875z"/></svg></a>
+            <a href="https://hanibinfaisalahammad.vercel.app/" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-link-45deg text-primary" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/></svg></a>
+        </div>
+    </footer>
+
 
     <!-- About Me Modal -->
     <div id="about-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
@@ -340,10 +287,10 @@
             </button>
             <div class="flex flex-col items-center text-center">
                 <div class="p-2 rounded-2xl bg-white/10 w-32 h-32 mb-4">
-                     <img src="assets/hani.png" alt="Hani Bin Faisal" class="rounded-xl w-full h-full object-cover">
+                     <img src="assets/hani.png" alt="Hani Bin Faisal Ahammad" class="rounded-xl w-full h-full object-cover">
                 </div>
-                <h2 class="text-2xl font-bold text-primary">Hani Bin Faisal</h2>
-                <p class="text-md text-accent mb-4">Software Developer</p>
+                <h2 class="text-2xl font-bold text-primary">Hani Bin Faisal Ahammad</h2>
+                <p class="text-md text-accent mb-4">AI & BBA Student</p>
                 <p class="text-sm text-secondary">A passionate MERN stack developer with a love for creating beautiful, intuitive, and highly performant web applications. I thrive on turning complex problems into simple, elegant solutions. Currently exploring new technologies and seeking opportunities to build impactful digital experiences.</p>
             </div>
         </div>
@@ -386,11 +333,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- ELEMENTS ---
-            const scrollContainer = document.getElementById('scroll-container');
-            const dynamicIsland = document.getElementById('dynamic-island');
-            const islandText = document.getElementById('island-text');
-            const storyline = document.getElementById('storyline');
-            const timelineItems = document.querySelectorAll('.timeline-item');
             const projectCards = document.querySelectorAll('.project-card');
             const themeToggle = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('theme-icon-sun');
@@ -426,44 +368,6 @@
                 localStorage.setItem('theme', newTheme);
                 applyTheme(newTheme);
             });
-
-
-            // --- DYNAMIC ISLAND & STORYLINE INTERACTION (Mobile only) ---
-            if (window.innerWidth < 1024) {
-                 const islandObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const item = entry.target;
-                            const year = item.dataset.year;
-                            const text = item.dataset.text;
-                            
-                            islandText.textContent = `${year}: ${text}`;
-                            dynamicIsland.classList.remove('w-[120px]', 'h-8', 'rounded-2xl');
-                            dynamicIsland.classList.add('w-[90%]', 'h-16', 'rounded-3xl', 'expanded');
-                        }
-                    });
-                }, { root: scrollContainer, threshold: 0.6 });
-
-                timelineItems.forEach(item => islandObserver.observe(item));
-
-                const storylineObserver = new IntersectionObserver((entries) => {
-                     if (!entries[0].isIntersecting) {
-                        dynamicIsland.classList.remove('w-[90%]', 'h-16', 'rounded-3xl', 'expanded');
-                        dynamicIsland.classList.add('w-[120px]', 'h-8', 'rounded-2xl');
-                        timelineItems.forEach(i => i.classList.remove('active'));
-                     } else {
-                        timelineItems.forEach(i => {
-                            if(i.getBoundingClientRect().top > 100 && i.getBoundingClientRect().top < 300) {
-                                i.classList.add('active')
-                            } else {
-                                i.classList.remove('active')
-                            }
-                        });
-                     }
-                }, { root: scrollContainer, rootMargin: "-150px 0px -150px 0px" });
-                
-                storylineObserver.observe(storyline);
-            }
 
             // --- MODAL LOGIC (REFACTORED) ---
             const setupModal = (triggerId, modalId) => {
@@ -524,5 +428,4 @@
     </script>
 </body>
 </html>
-
 
