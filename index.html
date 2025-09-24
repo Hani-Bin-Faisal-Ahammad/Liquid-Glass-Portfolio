@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         :root {
             --background-start: #0a0a0a;
@@ -105,6 +106,38 @@
         .proficiency-dot.filled {
             background-color: var(--accent-color);
         }
+
+        /* Resume Creator Input Styling */
+        .rc-input {
+            width: 100%;
+            margin-top: 0.25rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .rc-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        .rc-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+        .add-btn {
+            font-size: 1.25rem;
+            background-color: rgba(59, 130, 246, 0.2);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 0.1rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+        .add-btn:hover {
+            background-color: rgba(59, 130, 246, 0.4);
+        }
         
         /* Print Styles for Resume Creator */
         @media print {
@@ -124,7 +157,7 @@
             }
             @page {
                 size: A4;
-                margin: 20mm;
+                margin: 15mm;
             }
             #resume-preview {
                 font-family: 'Times New Roman', Times, serif;
@@ -337,7 +370,7 @@
             <a href="https://github.com/Hani-Bin-Faisal-Ahammad" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-github text-primary" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
             <a href="https://www.linkedin.com/in/hanibinfaisalahammad" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-linkedin text-primary" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.325 0-1.934.716-2.261 1.256h.016l.016-.022V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg></a>
             <a href="https://www.instagram.com/hani_bin_faisal" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram text-primary" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.442c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.232s.008-2.389.046-3.232c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.843-.038 1.096-.047 3.232-.047zM8 4.938a3.062 3.062 0 1 0 0 6.125 3.062 3.062 0 0 0 0-6.125zm0 4.688a1.625 1.625 0 1 1 0-3.25 1.625 1.625 0 0 1 0 3.25zm5.062-5.468a.938.938 0 1 0 0-1.875.938.938 0 0 0 0 1.875z"/></svg></a>
-            <a href="https://hanibinfaisalahammad.vercel.app/" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-link-45deg text-primary" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/></svg></a>
+            <a href="https://hanibinfaisalahammad.vercel.app/" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-link-45deg text-primary" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.c112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/></svg></a>
         </div>
     </footer>
 
@@ -421,34 +454,30 @@
     </div>
     
     <!-- Resume Creator Modal -->
-    <div id="resume-creator-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
-        <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
-        <div class="modal-content glass-pane w-full max-w-6xl h-[90vh] p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0 flex flex-col">
-            <button class="modal-close-btn absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 z-20"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+    <div id="resume-creator-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-0 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
+        <div class="modal-content glass-pane w-full h-full p-6 relative transition-all duration-300 ease-out transform scale-95 opacity-0 flex flex-col">
+            <button class="modal-close-btn absolute top-4 right-4 w-10 h-10 rounded-full glass-pane flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 z-20"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
             <div class="flex items-center justify-between mb-4 flex-shrink-0">
                 <h3 class="text-xl font-bold text-primary">Resume Creator</h3>
-                <button id="print-resume-btn" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors">Print / Download PDF</button>
+                <button id="print-resume-btn" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors">Download PDF</button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow overflow-hidden">
                 <!-- Input Form -->
                 <div id="resume-form" class="flex flex-col gap-4 overflow-y-auto pr-2 pb-4">
-                    <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Personal Details</h4>
-                    <input type="text" data-rc="name" placeholder="Full Name" class="rc-input">
-                    <input type="text" data-rc="title" placeholder="Job Title (e.g., Product Manager)" class="rc-input">
-                    <input type="text" data-rc="address" placeholder="Address" class="rc-input">
-                    <input type="tel" data-rc="phone" placeholder="Phone" class="rc-input">
-                    <input type="email" data-rc="email" placeholder="Email" class="rc-input">
-                    <input type="text" data-rc="linkedin" placeholder="LinkedIn Profile URL" class="rc-input">
+                    <div data-rc-section="personal">
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Personal Details</h4>
+                        <input type="text" data-rc="name" placeholder="Full Name" class="rc-input">
+                        <input type="text" data-rc="title" placeholder="Job Title (e.g., AI & BBA Student)" class="rc-input mt-2">
+                        <input type="tel" data-rc="phone" placeholder="Phone" class="rc-input mt-2">
+                        <input type="email" data-rc="email" placeholder="Email" class="rc-input mt-2">
+                        <input type="text" data-rc="linkedin" placeholder="LinkedIn Username (e.g., hanibinfaisalahammad)" class="rc-input mt-2">
+                        <input type="text" data-rc="github" placeholder="GitHub Username (e.g., Hani-Bin-Faisal-Ahammad)" class="rc-input mt-2">
+                         <input type="text" data-rc="website" placeholder="Portfolio URL" class="rc-input mt-2">
+                    </div>
                     
                     <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2 mt-2">Profile / Summary</h4>
-                    <textarea data-rc="summary" rows="4" placeholder="Experienced Product Manager with a proven track record..." class="rc-input"></textarea>
+                    <textarea data-rc="summary" rows="6" placeholder="A passionate and driven student..." class="rc-input"></textarea>
 
-                    <div class="flex justify-between items-center mt-2">
-                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Experience</h4>
-                        <button id="add-experience-btn" class="add-btn">+</button>
-                    </div>
-                    <div id="experience-entries" class="space-y-4"></div>
-                     
                     <div class="flex justify-between items-center mt-2">
                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Education</h4>
                         <button id="add-education-btn" class="add-btn">+</button>
@@ -456,10 +485,22 @@
                      <div id="education-entries" class="space-y-4"></div>
 
                     <div class="flex justify-between items-center mt-2">
-                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Skills</h4>
-                        <button id="add-skill-btn" class="add-btn">+</button>
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Projects / Experience</h4>
+                        <button id="add-experience-btn" class="add-btn">+</button>
                     </div>
-                    <div id="skill-entries" class="space-y-4"></div>
+                    <div id="experience-entries" class="space-y-4"></div>
+
+                    <div class="flex justify-between items-center mt-2">
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Technical Skills</h4>
+                        <button id="add-tech-skill-btn" class="add-btn">+</button>
+                    </div>
+                    <div id="tech-skill-entries" class="space-y-4"></div>
+
+                    <div class="flex justify-between items-center mt-2">
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Soft Skills</h4>
+                        <button id="add-soft-skill-btn" class="add-btn">+</button>
+                    </div>
+                    <div id="soft-skill-entries" class="space-y-4"></div>
 
                     <div class="flex justify-between items-center mt-2">
                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Languages</h4>
@@ -585,7 +626,7 @@
                 });
             }
 
-            // --- DYNAMIC RESUME CREATOR LOGIC V2 ---
+            // --- DYNAMIC RESUME CREATOR LOGIC V4 ---
             const resumeForm = document.getElementById('resume-form');
             const printResumeBtn = document.getElementById('print-resume-btn');
             
@@ -594,25 +635,21 @@
                 switch(type) {
                     case 'experience':
                         return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry">${commonHTML}
-                            <input type="text" data-rc="dates" placeholder="2018/08 - 2023/07" class="rc-input">
-                            <input type="text" data-rc="location" placeholder="Berlin, Germany" class="rc-input">
-                            <input type="text" data-rc="job" placeholder="Job Title" class="rc-input">
-                            <input type="text" data-rc="company" placeholder="Company" class="rc-input">
-                            <textarea data-rc="desc" placeholder="Led a cross-functional team..." rows="3" class="rc-input"></textarea>
+                            <input type="text" data-rc="dates" placeholder="July 2024 - Present" class="rc-input">
+                            <input type="text" data-rc="job" placeholder="Project Title" class="rc-input">
+                            <textarea data-rc="desc" placeholder="This project uses machine learning to predict..." rows="4" class="rc-input"></textarea>
                         </div>`;
                     case 'education':
                          return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry">${commonHTML}
-                            <input type="text" data-rc="dates" placeholder="2013/08 - 2015/07" class="rc-input">
-                            <input type="text" data-rc="location" placeholder="Munich, Germany" class="rc-input">
-                            <input type="text" data-rc="degree" placeholder="Degree / Certificate" class="rc-input">
-                            <input type="text" data-rc="school" placeholder="School / University" class="rc-input">
+                            <input type="text" data-rc="dates" placeholder="Sept 2024 - 2026" class="rc-input">
+                            <input type="text" data-rc="degree" placeholder="Bachelor of Business Administration" class="rc-input">
+                            <input type="text" data-rc="school" placeholder="Manipal University Jaipur" class="rc-input">
+                             <input type="text" data-rc="location" placeholder="Jaipur, India" class="rc-input">
                         </div>`;
-                    case 'skill':
+                    case 'techSkill':
+                    case 'softSkill':
                         return `<div class="p-3 rounded-lg glass-pane relative entry flex gap-4 items-center">${commonHTML}
-                            <input type="text" data-rc="skillName" placeholder="Product development" class="rc-input flex-grow">
-                            <div class="flex gap-1" data-rc="skillLevel">
-                                ${[1,2,3,4,5].map(i => `<button data-level="${i}" class="h-3 w-3 rounded-full bg-gray-500/50 proficiency-dot-btn"></button>`).join('')}
-                            </div>
+                            <input type="text" data-rc="skillName" placeholder="Python" class="rc-input flex-grow">
                         </div>`;
                     case 'language':
                         return `<div class="p-3 rounded-lg glass-pane relative entry flex gap-4 items-center">${commonHTML}
@@ -637,12 +674,18 @@
                     e.target.closest('.entry').remove();
                 }
                 if (e.target.classList.contains('proficiency-dot-btn')) {
+                    e.preventDefault(); 
                     const level = parseInt(e.target.dataset.level);
                     const dots = e.target.parentElement.querySelectorAll('.proficiency-dot-btn');
+                    const currentLevel = e.target.parentElement.dataset.levelValue;
+
+                    const newLevel = (currentLevel == level) ? 0 : level;
+
                     dots.forEach((dot, index) => {
-                       dot.classList.toggle('bg-blue-500', index < level);
+                       dot.classList.toggle('bg-blue-500', index < newLevel);
+                       dot.classList.toggle('bg-gray-500/50', index >= newLevel);
                     });
-                     e.target.parentElement.dataset.levelValue = level;
+                     e.target.parentElement.dataset.levelValue = newLevel;
                 }
                 generateResumePreview();
             };
@@ -654,12 +697,13 @@
                     personal: {},
                     experience: [],
                     education: [],
-                    skills: [],
+                    techSkills: [],
+                    softSkills: [],
                     languages: []
                 };
 
                 // Personal Details
-                resumeForm.querySelectorAll('#resume-form > input, #resume-form > textarea').forEach(el => {
+                resumeForm.querySelectorAll('[data-rc-section="personal"] [data-rc]').forEach(el => {
                     data.personal[el.dataset.rc] = el.value;
                 });
                 
@@ -674,11 +718,11 @@
                     entry.querySelectorAll('input').forEach(el => edu[el.dataset.rc] = el.value);
                     data.education.push(edu);
                 });
-                document.querySelectorAll('#skill-entries .entry').forEach(entry => {
-                    data.skills.push({
-                        name: entry.querySelector('[data-rc="skillName"]').value,
-                        level: entry.querySelector('[data-rc="skillLevel"]').dataset.levelValue || 0
-                    });
+                document.querySelectorAll('#tech-skill-entries .entry').forEach(entry => {
+                    data.techSkills.push(entry.querySelector('[data-rc="skillName"]').value);
+                });
+                document.querySelectorAll('#soft-skill-entries .entry').forEach(entry => {
+                    data.softSkills.push(entry.querySelector('[data-rc="skillName"]').value);
                 });
                 document.querySelectorAll('#language-entries .entry').forEach(entry => {
                      data.languages.push({
@@ -691,72 +735,143 @@
                 const preview = document.getElementById('resume-preview');
                 const p = data.personal;
                 
-                const contactInfo = [
-                    p.address,
+                 const contactInfo = [
                     p.phone,
-                    p.email ? `<a href="mailto:${p.email}" class="text-blue-600">${p.email}</a>` : '',
-                    p.linkedin ? `<a href="${p.linkedin}" class="text-blue-600">${p.linkedin.replace(/^(https?:\/\/)?(www\.)?/,'')}</a>` : ''
-                ].filter(Boolean).join(' &nbsp;|&nbsp; ');
+                    p.linkedin ? `<a href="https://linkedin.com/in/${p.linkedin}" target="_blank">linkedin.com/in/${p.linkedin}</a>` : '',
+                    p.website ? `<a href="${p.website}" target="_blank">${p.website}</a>` : '',
+                    p.email ? `<a href="mailto:${p.email}">${p.email}</a>` : '',
+                    p.github ? `<a href="https://github.com/${p.github}" target="_blank">github.com/${p.github}</a>` : ''
+                ].filter(Boolean).map(item => `<span>${item}</span>`).join(' &bull; ');
 
-                let html = `<div class="flex justify-between items-start pb-4 border-b-2 border-black">
-                                <div>
-                                    <h1 class="text-4xl font-bold text-black">${p.name || 'Andrew O\'Sullivan'}</h1>
-                                    <p class="text-2xl text-gray-700">${p.title || 'Product Manager'}</p>
-                                </div>
-                                <div class="text-right text-xs text-gray-600">${contactInfo.split('&nbsp;|&nbsp;').join('<br>')}</div>
+                let html = `<div class="text-center">
+                                <h1 class="text-4xl font-bold text-black">${p.name || 'Your Name'}</h1>
+                                <p class="text-xs text-gray-700 mt-2">${contactInfo}</p>
                             </div>`;
 
-                if(p.summary) html += `<div class="mt-4"><h2 class="section-title">Profile</h2><p class="section-content">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
+                if(p.summary) html += `<div class="mt-4"><h2 class="section-title">PROFILE</h2><p class="section-content text-sm">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
 
-                if(data.experience.length > 0 && data.experience[0].job) {
-                    html += `<div class="mt-4"><h2 class="section-title">Professional Experience</h2>`;
-                    data.experience.forEach(exp => {
-                         html += `<div class="flex mt-2">
-                                    <div class="w-1/4 text-xs font-semibold text-gray-600 pr-4">${exp.dates}<br>${exp.location}</div>
-                                    <div class="w-3/4">
-                                        <h3 class="font-bold text-black">${exp.job}</h3>
-                                        <p class="text-sm italic text-gray-700">${exp.company}</p>
-                                        <ul class="list-disc list-inside text-sm mt-1 text-gray-600">
-                                           ${exp.desc.split('\n').map(line => `<li>${line}</li>`).join('')}
-                                        </ul>
-                                    </div>
-                                  </div>`;
-                    });
-                    html += `</div>`;
-                }
-                
                 if(data.education.length > 0 && data.education[0].degree) {
-                     html += `<div class="mt-4"><h2 class="section-title">Education</h2>`;
+                     html += `<div class="mt-4"><h2 class="section-title">EDUCATION</h2>`;
                      data.education.forEach(edu => {
-                         html += `<div class="flex mt-2">
-                                     <div class="w-1/4 text-xs font-semibold text-gray-600 pr-4">${edu.dates}<br>${edu.location}</div>
-                                     <div class="w-3/4">
-                                         <h3 class="font-bold text-black">${edu.degree}</h3>
-                                         <p class="text-sm italic text-gray-700">${edu.school}</p>
+                         html += `<div class="flex justify-between mt-2">
+                                     <div>
+                                         <h3 class="font-bold text-black">${edu.school}</h3>
+                                         <p class="text-sm italic text-gray-700">${edu.degree}</p>
+                                     </div>
+                                     <div class="text-right">
+                                         <p class="text-sm font-semibold text-gray-600">${edu.dates}</p>
+                                         <p class="text-sm text-gray-600">${edu.location}</p>
                                      </div>
                                    </div>`;
                      });
                      html += `</div>`;
                 }
 
-                if (data.skills.length > 0 && data.skills[0].name) {
-                    html += `<div class="mt-4"><h2 class="section-title">Skills</h2><div class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2">`;
-                    data.skills.forEach(skill => {
-                         html += `<div class="flex justify-between items-center"><p class="text-sm font-semibold text-gray-700">${skill.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= skill.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
+                 if(data.techSkills.length > 0 && data.techSkills[0]) {
+                    html += `<div class="mt-4"><h2 class="section-title">TECHNICAL SKILLS</h2><div class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2">`;
+                    data.techSkills.forEach(skill => {
+                         if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
                     });
                     html += `</div></div>`;
+                }
+                if(data.softSkills.length > 0 && data.softSkills[0]) {
+                    html += `<div class="mt-4"><h2 class="section-title">SOFT SKILLS</h2><div class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2">`;
+                    data.softSkills.forEach(skill => {
+                         if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
+                    });
+                    html += `</div></div>`;
+                }
+                
+                if (data.languages.length > 0 && data.languages[0].name) {
+                    html += `<div class="mt-4"><h2 class="section-title">LANGUAGES</h2><div class="flex gap-x-8 gap-y-2 mt-2">`;
+                    data.languages.forEach(lang => {
+                         if (lang.name) html += `<div class="flex items-center gap-2"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
+                    });
+                    html += `</div></div>`;
+                }
+                
+                if(data.experience.length > 0 && data.experience[0].job) {
+                    html += `<div class="mt-4"><h2 class="section-title">PROJECTS</h2>`;
+                    data.experience.forEach(exp => {
+                         html += `<div class="mt-2">
+                                     <div class="flex justify-between">
+                                        <h3 class="font-bold text-black">${exp.job}</h3>
+                                        <p class="text-sm font-semibold text-gray-600">${exp.dates}</p>
+                                     </div>
+                                     <p class="text-sm mt-1 text-gray-600">${exp.desc.replace(/\n/g, '<br>')}</p>
+                                  </div>`;
+                    });
+                    html += `</div>`;
                 }
 
-                 if (data.languages.length > 0 && data.languages[0].name) {
-                    html += `<div class="mt-4"><h2 class="section-title">Languages</h2><div class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2">`;
-                    data.languages.forEach(lang => {
-                         html += `<div class="flex justify-between items-center"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
-                    });
-                    html += `</div></div>`;
-                }
+                html += `<div class="mt-4"><h2 class="section-title">DECLARATION</h2><p class="text-sm text-gray-700">I declare that the information presented in this resume is true and accurate to the best of my knowledge. I assure you that my experience, skills, and qualifications meet the requirements of the job.</p></div>`
+
 
                 preview.innerHTML = html;
-                preview.querySelectorAll('.section-title').forEach(el => el.classList.add('text-lg', 'font-bold', 'text-black', 'border-b-2', 'border-black', 'pb-1', 'mb-2'));
+                preview.querySelectorAll('.section-title').forEach(el => el.classList.add('text-sm', 'font-bold', 'text-black', 'border-b-2', 'border-black', 'pb-1', 'mb-2'));
+            };
+
+            const setDefaultResumeData = () => {
+                const form = document.getElementById('resume-form');
+                form.querySelector('[data-rc="name"]').value = "Hani Bin Faisal Ahammad";
+                form.querySelector('[data-rc="phone"]').value = "+973 35433013";
+                form.querySelector('[data-rc="linkedin"]').value = "hani-bin-faisal-ahammad";
+                form.querySelector('[data-rc="website"]').value = "hanibinfaisalahammad.vercel.app";
+                form.querySelector('[data-rc="github"]').value = "Hani-Bin-Faisal-Ahammad";
+                form.querySelector('[data-rc="email"]').value = "hanibinfaisalahammad@gmail.com";
+                form.querySelector('[data-rc="summary"]').value = "Dedicated and enthusiastic AI student with a passion for machine learning and data science. Proficient in Python and eager to apply my skills to real-world problems. Is a creative and analytical thinker with a keen eye for detailed analytics. Possess excellent problem-solving and communication skills. Committed to lifelong learning and eager to collaborate with talented individuals.";
+
+                // Education Entries
+                ['Learn Logic AI', 'Manipal University Jaipur', 'The Indian School Bahrain'].forEach(school => addEntry('education', 'education-entries'));
+                const eduEntries = form.querySelectorAll('#education-entries .entry');
+                eduEntries[0].querySelector('[data-rc="dates"]').value = 'July 2024 - still pursuing';
+                eduEntries[0].querySelector('[data-rc="degree"]').value = 'AI and Machine Learning';
+                eduEntries[0].querySelector('[data-rc="school"]').value = 'Learn Logic AI';
+                eduEntries[0].querySelector('[data-rc="location"]').value = 'Manjeri, Malapuram, Kerala';
+                
+                eduEntries[1].querySelector('[data-rc="dates"]').value = 'September 2024 - 2026';
+                eduEntries[1].querySelector('[data-rc="degree"]').value = 'BBA';
+                eduEntries[1].querySelector('[data-rc="school"]').value = 'Manipal University Jaipur';
+                
+                eduEntries[2].querySelector('[data-rc="dates"]').value = 'March 2024';
+                eduEntries[2].querySelector('[data-rc="degree"]').value = 'Higher Secondary';
+                eduEntries[2].querySelector('[data-rc="school"]').value = 'The Indian School Bahrain';
+                eduEntries[2].querySelector('[data-rc="location"]').value = 'Isa Town, Bahrain';
+
+                // Project/Experience
+                addEntry('experience', 'experience-entries');
+                const expEntry = form.querySelector('#experience-entries .entry');
+                expEntry.querySelector('[data-rc="job"]').value = 'EDA of Used Cars';
+                expEntry.querySelector('[data-rc="desc"]').value = "This project uses machine learning to predict used car prices. It involves cleaning and analyzing a used car dataset, engineering new features, and training a model for price prediction. The goal is to build an accurate and robust model that can assist buyers, sellers, and businesses in the used car market.";
+
+
+                // Tech Skills
+                ['Python', 'Machine Learning', 'Digital Marketing', 'Video Editing', 'Deep Learning', 'Artificial Intelligence', 'MS Office', 'Photoshop'].forEach(skill => {
+                    addEntry('techSkill', 'tech-skill-entries');
+                    form.querySelector('#tech-skill-entries .entry:last-child [data-rc="skillName"]').value = skill;
+                });
+
+                // Soft Skills
+                ['Leadership', 'Problem Solving', 'Time Management', 'Adaptability', 'Teamwork', 'Perseverance', 'Stress Management', 'Professionalism'].forEach(skill => {
+                     addEntry('softSkill', 'soft-skill-entries');
+                    form.querySelector('#soft-skill-entries .entry:last-child [data-rc="skillName"]').value = skill;
+                });
+
+                // Languages
+                addEntry('language', 'language-entries');
+                const langEn = form.querySelector('#language-entries .entry:last-child');
+                langEn.querySelector('[data-rc="langName"]').value = 'English';
+                langEn.querySelector('[data-rc="langLevel"]').dataset.levelValue = 4;
+                langEn.querySelectorAll('.proficiency-dot-btn').forEach((d,i) => d.classList.toggle('bg-blue-500', i < 4));
+                
+                addEntry('language', 'language-entries');
+                const langHi = form.querySelector('#language-entries .entry:last-child');
+                langHi.querySelector('[data-rc="langName"]').value = 'Hindi';
+                langHi.querySelector('[data-rc="langLevel"]').dataset.levelValue = 3;
+                langHi.querySelectorAll('.proficiency-dot-btn').forEach((d,i) => d.classList.toggle('bg-blue-500', i < 3));
+
+
+                generateResumePreview();
             };
 
             if (resumeForm) {
@@ -764,19 +879,25 @@
                 resumeForm.addEventListener('click', handleFormClick);
                 document.getElementById('add-experience-btn').addEventListener('click', () => addEntry('experience', 'experience-entries'));
                 document.getElementById('add-education-btn').addEventListener('click', () => addEntry('education', 'education-entries'));
-                document.getElementById('add-skill-btn').addEventListener('click', () => addEntry('skill', 'skill-entries'));
+                document.getElementById('add-tech-skill-btn').addEventListener('click', () => addEntry('techSkill', 'tech-skill-entries'));
+                document.getElementById('add-soft-skill-btn').addEventListener('click', () => addEntry('softSkill', 'soft-skill-entries'));
                 document.getElementById('add-language-btn').addEventListener('click', () => addEntry('language', 'language-entries'));
                 
-                addEntry('experience', 'experience-entries');
-                addEntry('education', 'education-entries');
-                addEntry('skill', 'skill-entries');
-                addEntry('language', 'language-entries');
-
-                generateResumePreview();
+                setDefaultResumeData();
             }
 
             if(printResumeBtn){
-                printResumeBtn.addEventListener('click', () => window.print());
+                printResumeBtn.addEventListener('click', () => {
+                     const element = document.getElementById('resume-preview');
+                     const opt = {
+                      margin:       [0.5, 0.5, 0.5, 0.5],
+                      filename:     'Hani_Ahammad_Resume.pdf',
+                      image:        { type: 'jpeg', quality: 0.98 },
+                      html2canvas:  { scale: 2, useCORS: true },
+                      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                    };
+                    html2pdf().from(element).set(opt).save();
+                });
             }
 
             // --- PERSPECTIVE PROJECT CARDS INTERACTION ---
