@@ -96,6 +96,40 @@
             max-height: 40vh;
             overflow-y: auto;
         }
+
+        /* Proficiency Dots */
+        .proficiency-dot {
+            background-color: var(--dock-icon-bg);
+            transition: background-color 0.3s ease;
+        }
+        .proficiency-dot.filled {
+            background-color: var(--accent-color);
+        }
+        
+        /* Print Styles for Resume Creator */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #resume-preview-container, #resume-preview-container * {
+                visibility: visible;
+            }
+            #resume-preview-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none !important;
+                box-shadow: none !important;
+            }
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+            #resume-preview {
+                font-family: 'Times New Roman', Times, serif;
+            }
+        }
     </style>
 </head>
 <body>
@@ -163,18 +197,18 @@
             <section id="projects" class="my-10">
                  <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">Projects</h2>
                 <div class="grid grid-cols-2 gap-4">
-                    <a href="https://hanibinfaisalahammad.vercel.app/project1" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
+                    <button id="wame-tile" class="project-card text-left aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
                         <div class="project-card-glow"></div>
-                        <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=TMDB" class="absolute inset-0 w-full h-full object-cover opacity-20">
-                        <h4 class="font-bold text-primary relative z-10">TMDB Clone</h4>
-                        <p class="text-xs text-secondary relative z-10">React & API</p>
-                    </a>
-                     <a href="https://hanibinfaisalahammad.vercel.app/project2" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
+                        <img src="https://placehold.co/200x200/1a1a1a/25D366?text=wa.me" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <h4 class="font-bold text-primary relative z-10">wa.me Link Creator</h4>
+                        <p class="text-xs text-secondary relative z-10">WhatsApp Link Generator</p>
+                    </button>
+                    <button id="resume-creator-tile" class="project-card text-left aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
                         <div class="project-card-glow"></div>
-                        <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=Shoe" class="absolute inset-0 w-full h-full object-cover opacity-20">
-                        <h4 class="font-bold text-primary relative z-10">E-Commerce</h4>
-                         <p class="text-xs text-secondary relative z-10">MERN Stack</p>
-                    </a>
+                        <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=CV" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <h4 class="font-bold text-primary relative z-10">Resume Creator</h4>
+                        <p class="text-xs text-secondary relative z-10">Quick CV Builder</p>
+                    </button>
                     <a href="#" target="_blank" class="project-card aspect-square glass-pane rounded-3xl p-3 flex flex-col justify-end relative overflow-hidden">
                         <div class="project-card-glow"></div>
                         <img src="https://placehold.co/200x200/1a1a1a/3b82f6?text=New" class="absolute inset-0 w-full h-full object-cover opacity-20">
@@ -229,15 +263,45 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-secondary mb-4">Skills</h3>
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Soft Skills</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Python</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">MERN Stack</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Web Design</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">English Fluency</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Hindi Fluency</p></div>
-                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Driving License</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Communication</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Creativity</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Problem-Solving</p></div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Hard Skills</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Python Basics</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Web Development</p></div>
+                        <div class="glass-pane rounded-2xl p-4 text-center"><p class="font-semibold text-primary">Selling</p></div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Languages</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold text-primary">English</p>
+                            <div class="flex gap-1.5 items-center">
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot filled"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot filled"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot filled"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot filled"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot"></span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold text-primary">Hindi</p>
+                            <div class="flex gap-1.5 items-center">
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot filled"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot filled"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot filled"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot"></span>
+                                <span class="h-2.5 w-2.5 rounded-full proficiency-dot"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,7 +355,7 @@
                 </div>
                 <h2 class="text-2xl font-bold text-primary">Hani Bin Faisal Ahammad</h2>
                 <p class="text-md text-accent mb-4">AI & BBA Student</p>
-                <p class="text-sm text-secondary">I’m Hani, a passionate BBA student exploring technology, business, and creativity. With a growing interest in AI, coding, and digital innovation, I aim to build impactful projects while balancing academics, personal growth, and future entrepreneurial goals.</p>
+                <p class="text-sm text-secondary">A passionate MERN stack developer with a love for creating beautiful, intuitive, and highly performant web applications. I thrive on turning complex problems into simple, elegant solutions. Currently exploring new technologies and seeking opportunities to build impactful digital experiences.</p>
             </div>
         </div>
     </div>
@@ -329,6 +393,90 @@
             </ol>
         </div>
     </div>
+
+    <!-- wa.me Link Creator Modal -->
+    <div id="wame-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
+        <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
+        <div class="modal-content glass-pane w-full max-w-md p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0">
+            <button class="modal-close-btn absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+            <h3 class="text-xl font-bold text-primary mb-4">wa.me Link Creator</h3>
+            <div class="space-y-4 text-left">
+                <div>
+                    <label for="wa-phone" class="text-sm font-medium text-secondary">Phone Number (with country code)</label>
+                    <input type="tel" id="wa-phone" placeholder="e.g., 919876543210" class="w-full mt-1 p-3 rounded-lg glass-pane text-primary focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="wa-message" class="text-sm font-medium text-secondary">Greeting Message (optional)</label>
+                    <textarea id="wa-message" rows="3" placeholder="Hello Hani!" class="w-full mt-1 p-3 rounded-lg glass-pane text-primary focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-secondary">Generated Link</label>
+                    <div class="mt-1 flex items-center gap-2">
+                        <input type="text" id="wa-output" readonly class="w-full p-3 rounded-lg glass-pane text-primary bg-transparent border-none">
+                        <button id="wa-copy" class="bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg hover:bg-blue-700 transition-colors">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Resume Creator Modal -->
+    <div id="resume-creator-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
+        <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
+        <div class="modal-content glass-pane w-full max-w-6xl h-[90vh] p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0 flex flex-col">
+            <button class="modal-close-btn absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 z-20"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+            <div class="flex items-center justify-between mb-4 flex-shrink-0">
+                <h3 class="text-xl font-bold text-primary">Resume Creator</h3>
+                <button id="print-resume-btn" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors">Print / Download PDF</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow overflow-hidden">
+                <!-- Input Form -->
+                <div id="resume-form" class="flex flex-col gap-4 overflow-y-auto pr-2 pb-4">
+                    <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Personal Details</h4>
+                    <input type="text" data-rc="name" placeholder="Full Name" class="rc-input">
+                    <input type="text" data-rc="title" placeholder="Job Title (e.g., Product Manager)" class="rc-input">
+                    <input type="text" data-rc="address" placeholder="Address" class="rc-input">
+                    <input type="tel" data-rc="phone" placeholder="Phone" class="rc-input">
+                    <input type="email" data-rc="email" placeholder="Email" class="rc-input">
+                    <input type="text" data-rc="linkedin" placeholder="LinkedIn Profile URL" class="rc-input">
+                    
+                    <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2 mt-2">Profile / Summary</h4>
+                    <textarea data-rc="summary" rows="4" placeholder="Experienced Product Manager with a proven track record..." class="rc-input"></textarea>
+
+                    <div class="flex justify-between items-center mt-2">
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Experience</h4>
+                        <button id="add-experience-btn" class="add-btn">+</button>
+                    </div>
+                    <div id="experience-entries" class="space-y-4"></div>
+                     
+                    <div class="flex justify-between items-center mt-2">
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Education</h4>
+                        <button id="add-education-btn" class="add-btn">+</button>
+                    </div>
+                     <div id="education-entries" class="space-y-4"></div>
+
+                    <div class="flex justify-between items-center mt-2">
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Skills</h4>
+                        <button id="add-skill-btn" class="add-btn">+</button>
+                    </div>
+                    <div id="skill-entries" class="space-y-4"></div>
+
+                    <div class="flex justify-between items-center mt-2">
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Languages</h4>
+                        <button id="add-language-btn" class="add-btn">+</button>
+                    </div>
+                    <div id="language-entries" class="space-y-4"></div>
+                </div>
+                <!-- Preview Area -->
+                <div id="resume-preview-container" class="bg-white text-gray-800 rounded-lg overflow-y-auto">
+                    <div id="resume-preview" class="p-8">
+                        <!-- Generated resume will appear here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -369,7 +517,7 @@
                 applyTheme(newTheme);
             });
 
-            // --- MODAL LOGIC (REFACTORED) ---
+            // --- MODAL LOGIC ---
             const setupModal = (triggerId, modalId) => {
                 const trigger = document.getElementById(triggerId);
                 const modal = document.getElementById(modalId);
@@ -398,6 +546,238 @@
             setupModal('anime-tile', 'anime-modal');
             setupModal('drawing-tile', 'drawing-modal');
             setupModal('books-tile', 'books-modal');
+            setupModal('wame-tile', 'wame-modal');
+            setupModal('resume-creator-tile', 'resume-creator-modal');
+
+            // --- WA.ME LINK CREATOR LOGIC ---
+            const phoneInput = document.getElementById('wa-phone');
+            const messageInput = document.getElementById('wa-message');
+            const outputInput = document.getElementById('wa-output');
+            const copyBtn = document.getElementById('wa-copy');
+
+            const generateWaMeLink = () => {
+                if (!phoneInput || !messageInput || !outputInput) return;
+                const phone = phoneInput.value.replace(/[^0-9]/g, '');
+                if (!phone) {
+                    outputInput.value = '';
+                    return;
+                }
+                const message = encodeURIComponent(messageInput.value);
+                const link = `https://wa.me/${phone}${message ? `?text=${message}` : ''}`;
+                outputInput.value = link;
+            };
+
+            if (phoneInput && messageInput && outputInput && copyBtn) {
+                phoneInput.addEventListener('input', generateWaMeLink);
+                messageInput.addEventListener('input', generateWaMeLink);
+
+                copyBtn.addEventListener('click', () => {
+                    if (outputInput.value) {
+                        outputInput.select();
+                        document.execCommand('copy');
+                        
+                        const originalText = copyBtn.textContent;
+                        copyBtn.textContent = 'Copied!';
+                        setTimeout(() => {
+                            copyBtn.textContent = originalText;
+                        }, 2000);
+                    }
+                });
+            }
+
+            // --- DYNAMIC RESUME CREATOR LOGIC V2 ---
+            const resumeForm = document.getElementById('resume-form');
+            const printResumeBtn = document.getElementById('print-resume-btn');
+            
+            const createEntryHTML = (type) => {
+                const commonHTML = `<button class="remove-entry-btn absolute top-2 right-2 text-red-400 hover:text-red-600 text-xl font-bold">&times;</button>`;
+                switch(type) {
+                    case 'experience':
+                        return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry">${commonHTML}
+                            <input type="text" data-rc="dates" placeholder="2018/08 - 2023/07" class="rc-input">
+                            <input type="text" data-rc="location" placeholder="Berlin, Germany" class="rc-input">
+                            <input type="text" data-rc="job" placeholder="Job Title" class="rc-input">
+                            <input type="text" data-rc="company" placeholder="Company" class="rc-input">
+                            <textarea data-rc="desc" placeholder="Led a cross-functional team..." rows="3" class="rc-input"></textarea>
+                        </div>`;
+                    case 'education':
+                         return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry">${commonHTML}
+                            <input type="text" data-rc="dates" placeholder="2013/08 - 2015/07" class="rc-input">
+                            <input type="text" data-rc="location" placeholder="Munich, Germany" class="rc-input">
+                            <input type="text" data-rc="degree" placeholder="Degree / Certificate" class="rc-input">
+                            <input type="text" data-rc="school" placeholder="School / University" class="rc-input">
+                        </div>`;
+                    case 'skill':
+                        return `<div class="p-3 rounded-lg glass-pane relative entry flex gap-4 items-center">${commonHTML}
+                            <input type="text" data-rc="skillName" placeholder="Product development" class="rc-input flex-grow">
+                            <div class="flex gap-1" data-rc="skillLevel">
+                                ${[1,2,3,4,5].map(i => `<button data-level="${i}" class="h-3 w-3 rounded-full bg-gray-500/50 proficiency-dot-btn"></button>`).join('')}
+                            </div>
+                        </div>`;
+                    case 'language':
+                        return `<div class="p-3 rounded-lg glass-pane relative entry flex gap-4 items-center">${commonHTML}
+                             <input type="text" data-rc="langName" placeholder="English" class="rc-input flex-grow">
+                             <div class="flex gap-1" data-rc="langLevel">
+                                ${[1,2,3,4,5].map(i => `<button data-level="${i}" class="h-3 w-3 rounded-full bg-gray-500/50 proficiency-dot-btn"></button>`).join('')}
+                            </div>
+                        </div>`;
+                }
+                return '';
+            };
+
+            const addEntry = (type, containerId) => {
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.insertAdjacentHTML('beforeend', createEntryHTML(type));
+                }
+            };
+            
+            const handleFormClick = (e) => {
+                if (e.target.classList.contains('remove-entry-btn')) {
+                    e.target.closest('.entry').remove();
+                }
+                if (e.target.classList.contains('proficiency-dot-btn')) {
+                    const level = parseInt(e.target.dataset.level);
+                    const dots = e.target.parentElement.querySelectorAll('.proficiency-dot-btn');
+                    dots.forEach((dot, index) => {
+                       dot.classList.toggle('bg-blue-500', index < level);
+                    });
+                     e.target.parentElement.dataset.levelValue = level;
+                }
+                generateResumePreview();
+            };
+            
+            const generateResumePreview = () => {
+                if (!resumeForm) return;
+
+                const data = {
+                    personal: {},
+                    experience: [],
+                    education: [],
+                    skills: [],
+                    languages: []
+                };
+
+                // Personal Details
+                resumeForm.querySelectorAll('#resume-form > input, #resume-form > textarea').forEach(el => {
+                    data.personal[el.dataset.rc] = el.value;
+                });
+                
+                // Dynamic Entries
+                document.querySelectorAll('#experience-entries .entry').forEach(entry => {
+                    const exp = {};
+                    entry.querySelectorAll('input, textarea').forEach(el => exp[el.dataset.rc] = el.value);
+                    data.experience.push(exp);
+                });
+                 document.querySelectorAll('#education-entries .entry').forEach(entry => {
+                    const edu = {};
+                    entry.querySelectorAll('input').forEach(el => edu[el.dataset.rc] = el.value);
+                    data.education.push(edu);
+                });
+                document.querySelectorAll('#skill-entries .entry').forEach(entry => {
+                    data.skills.push({
+                        name: entry.querySelector('[data-rc="skillName"]').value,
+                        level: entry.querySelector('[data-rc="skillLevel"]').dataset.levelValue || 0
+                    });
+                });
+                document.querySelectorAll('#language-entries .entry').forEach(entry => {
+                     data.languages.push({
+                        name: entry.querySelector('[data-rc="langName"]').value,
+                        level: entry.querySelector('[data-rc="langLevel"]').dataset.levelValue || 0
+                    });
+                });
+
+                // --- Build HTML ---
+                const preview = document.getElementById('resume-preview');
+                const p = data.personal;
+                
+                const contactInfo = [
+                    p.address,
+                    p.phone,
+                    p.email ? `<a href="mailto:${p.email}" class="text-blue-600">${p.email}</a>` : '',
+                    p.linkedin ? `<a href="${p.linkedin}" class="text-blue-600">${p.linkedin.replace(/^(https?:\/\/)?(www\.)?/,'')}</a>` : ''
+                ].filter(Boolean).join(' &nbsp;|&nbsp; ');
+
+                let html = `<div class="flex justify-between items-start pb-4 border-b-2 border-black">
+                                <div>
+                                    <h1 class="text-4xl font-bold text-black">${p.name || 'Andrew O\'Sullivan'}</h1>
+                                    <p class="text-2xl text-gray-700">${p.title || 'Product Manager'}</p>
+                                </div>
+                                <div class="text-right text-xs text-gray-600">${contactInfo.split('&nbsp;|&nbsp;').join('<br>')}</div>
+                            </div>`;
+
+                if(p.summary) html += `<div class="mt-4"><h2 class="section-title">Profile</h2><p class="section-content">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
+
+                if(data.experience.length > 0 && data.experience[0].job) {
+                    html += `<div class="mt-4"><h2 class="section-title">Professional Experience</h2>`;
+                    data.experience.forEach(exp => {
+                         html += `<div class="flex mt-2">
+                                    <div class="w-1/4 text-xs font-semibold text-gray-600 pr-4">${exp.dates}<br>${exp.location}</div>
+                                    <div class="w-3/4">
+                                        <h3 class="font-bold text-black">${exp.job}</h3>
+                                        <p class="text-sm italic text-gray-700">${exp.company}</p>
+                                        <ul class="list-disc list-inside text-sm mt-1 text-gray-600">
+                                           ${exp.desc.split('\n').map(line => `<li>${line}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                  </div>`;
+                    });
+                    html += `</div>`;
+                }
+                
+                if(data.education.length > 0 && data.education[0].degree) {
+                     html += `<div class="mt-4"><h2 class="section-title">Education</h2>`;
+                     data.education.forEach(edu => {
+                         html += `<div class="flex mt-2">
+                                     <div class="w-1/4 text-xs font-semibold text-gray-600 pr-4">${edu.dates}<br>${edu.location}</div>
+                                     <div class="w-3/4">
+                                         <h3 class="font-bold text-black">${edu.degree}</h3>
+                                         <p class="text-sm italic text-gray-700">${edu.school}</p>
+                                     </div>
+                                   </div>`;
+                     });
+                     html += `</div>`;
+                }
+
+                if (data.skills.length > 0 && data.skills[0].name) {
+                    html += `<div class="mt-4"><h2 class="section-title">Skills</h2><div class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2">`;
+                    data.skills.forEach(skill => {
+                         html += `<div class="flex justify-between items-center"><p class="text-sm font-semibold text-gray-700">${skill.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= skill.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
+                    });
+                    html += `</div></div>`;
+                }
+
+                 if (data.languages.length > 0 && data.languages[0].name) {
+                    html += `<div class="mt-4"><h2 class="section-title">Languages</h2><div class="grid grid-cols-2 gap-x-8 gap-y-2 mt-2">`;
+                    data.languages.forEach(lang => {
+                         html += `<div class="flex justify-between items-center"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
+                    });
+                    html += `</div></div>`;
+                }
+
+                preview.innerHTML = html;
+                preview.querySelectorAll('.section-title').forEach(el => el.classList.add('text-lg', 'font-bold', 'text-black', 'border-b-2', 'border-black', 'pb-1', 'mb-2'));
+            };
+
+            if (resumeForm) {
+                resumeForm.addEventListener('input', generateResumePreview);
+                resumeForm.addEventListener('click', handleFormClick);
+                document.getElementById('add-experience-btn').addEventListener('click', () => addEntry('experience', 'experience-entries'));
+                document.getElementById('add-education-btn').addEventListener('click', () => addEntry('education', 'education-entries'));
+                document.getElementById('add-skill-btn').addEventListener('click', () => addEntry('skill', 'skill-entries'));
+                document.getElementById('add-language-btn').addEventListener('click', () => addEntry('language', 'language-entries'));
+                
+                addEntry('experience', 'experience-entries');
+                addEntry('education', 'education-entries');
+                addEntry('skill', 'skill-entries');
+                addEntry('language', 'language-entries');
+
+                generateResumePreview();
+            }
+
+            if(printResumeBtn){
+                printResumeBtn.addEventListener('click', () => window.print());
+            }
 
             // --- PERSPECTIVE PROJECT CARDS INTERACTION ---
             projectCards.forEach(card => {
