@@ -76,3 +76,82 @@ cd Liquid-Glass-Portfolio
 
 # Open index.html in your browser
 # (Recommended: use VS Code + Live Server extension)
+
+```
+---
+## 🖌️ Customization Guide
+
+All content is inside index.html for quick edits.
+---
+1. Profile Information
+
+* Profile Picture: Replace the src in the `<img>` tag in the hero and About Me modal.
+
+* Name & Title: Update the `<h1>` and `<p>` tags in the hero section.
+
+* About Me Text: Edit the `<p>` inside the `#about-modal`.
+---
+2. "My Journey" Timeline
+
+Each milestone is a `.timeline-item`. Edit year, title, and description.
+```bash
+<div class="timeline-item">
+  <div class="absolute">2024</div>
+  <h3 class="font-bold">Higher Secondary</h3>
+  <p class="text-sm">Indian School Bahrain (CBSE)</p>
+</div>
+```
+---
+3. Projects
+
+Each project is a `.project-card`. Replace with your own links, images, and descriptions.
+```
+<a href="https://your-project-link.com" target="_blank" class="project-card">
+  <img src="assets/project1.png" alt="Project Thumbnail">
+  <h4>My Project</h4>
+  <p>Tech Stack</p>
+</a>
+```
+---
+4. Hobbies, Achievements & Skills
+
+* Skills: Edit `<div class="glass-pane">Python</div>`
+
+* Hobbies: Edit the `<li>` elements in their respective modals.
+---
+5. Resume / CV
+
+Place your resume PDF in `assets/resume.pdf.`
+
+```
+<a href="assets/resume.pdf" download="Hani_Bin_Faisal_Resume.pdf">
+  Download CV
+</a>
+```
+---
+6. Social & Contact Links
+
+Update the dock icons and `mailto:` link.
+```
+<a href="https://github.com/Hani-Bin-Faisal-Ahammad" target="_blank">GitHub</a>
+<a href="mailto:your-email@gmail.com">Get in Touch</a>
+
+```
+---
+## 📂 Folder Structure
+```
+Liquid-Glass-Portfolio/
+│
+├── index.html        # Main file (HTML + CSS + JS)
+├── assets/           # Images, resume, and other static files
+│   ├── profile.jpeg
+│   ├── resume.pdf
+│   └── project1.png
+└── README.md
+```
+---
+## 📜 License
+
+This project is open-source and free to use. If you use it, consider giving credit.
+---
+## 🚀 Built with creativity, code, and a touch of futuristic design by Hani Bin Faisal Ahammad
