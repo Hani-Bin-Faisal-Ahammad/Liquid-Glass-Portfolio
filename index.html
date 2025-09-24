@@ -139,6 +139,52 @@
             background-color: rgba(59, 130, 246, 0.4);
         }
         
+        /* New Resume Preview Styles */
+        #resume-preview-container {
+            background-color: #f3f4f6; /* A light grey for the paper background */
+        }
+        #resume-preview {
+            font-family: Arial, sans-serif;
+            color: #111827; /* Dark gray for text */
+            width: 21cm; /* A4 width */
+            min-height: 29.7cm; /* A4 height */
+            padding: 1in;
+            margin: 1rem auto;
+            box-sizing: border-box;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #resume-preview h1 {
+            font-size: 24pt;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        #resume-preview h2 {
+            font-size: 14pt;
+            font-weight: 700;
+            border-bottom: 2px solid #111827;
+            padding-bottom: 4px;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+        #resume-preview h3 {
+            font-size: 12pt;
+            font-weight: 700;
+        }
+        #resume-preview p, #resume-preview li, #resume-preview a, #resume-preview span {
+            font-size: 11pt;
+            line-height: 1.5;
+        }
+        #resume-preview a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        #resume-preview a:hover {
+            text-decoration: underline;
+        }
+
+
         /* Print Styles for Resume Creator */
         @media print {
             body * {
@@ -626,7 +672,7 @@
                 });
             }
 
-            // --- DYNAMIC RESUME CREATOR LOGIC V4 ---
+                // --- DYNAMIC RESUME CREATOR LOGIC V4 ---
             const resumeForm = document.getElementById('resume-form');
             const printResumeBtn = document.getElementById('print-resume-btn');
             
@@ -706,6 +752,7 @@
                 resumeForm.querySelectorAll('[data-rc-section="personal"] [data-rc]').forEach(el => {
                     data.personal[el.dataset.rc] = el.value;
                 });
+                data.personal.summary = resumeForm.querySelector('[data-rc="summary"]').value; // FIX: Get summary value
                 
                 // Dynamic Entries
                 document.querySelectorAll('#experience-entries .entry').forEach(entry => {
@@ -808,7 +855,6 @@
 
 
                 preview.innerHTML = html;
-                preview.querySelectorAll('.section-title').forEach(el => el.classList.add('text-sm', 'font-bold', 'text-black', 'border-b-2', 'border-black', 'pb-1', 'mb-2'));
             };
 
             const setDefaultResumeData = () => {
@@ -890,7 +936,7 @@
                 printResumeBtn.addEventListener('click', () => {
                      const element = document.getElementById('resume-preview');
                      const opt = {
-                      margin:       [0.5, 0.5, 0.5, 0.5],
+                      margin:       1,
                       filename:     'Hani_Ahammad_Resume.pdf',
                       image:        { type: 'jpeg', quality: 0.98 },
                       html2canvas:  { scale: 2, useCORS: true },
@@ -929,5 +975,6 @@
     </script>
 </body>
 </html>
+
 
 
