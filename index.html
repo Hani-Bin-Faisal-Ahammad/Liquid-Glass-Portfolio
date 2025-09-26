@@ -8,37 +8,47 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         :root {
-            --background-start: #0a0a0a;
-            --background-end: #1f1f1f;
             --glass-color: rgba(22, 22, 22, 0.6);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-primary: #f5f5f5;
             --text-secondary: #a3a3a3;
             --accent-color: #3b82f6;
-            --content-bg: #000000;
             --dock-icon-bg: rgba(55, 55, 55, 0.7);
         }
         
         body.light {
-            --background-start: #ffffff; /* Clean white start */
-            --background-end: #f0f4f8;   /* Subtle cool blue/grey end */
-            --glass-color: rgba(255, 255, 255, 0.6); /* Slightly more transparent glass */
-            --glass-border: rgba(59, 130, 246, 0.15); /* Border tinted with accent color */
-            --text-primary: #111827;     /* Deeper, more standard black for text */
-            --text-secondary: #4b5563;   /* A richer, more readable grey */
-            --content-bg: #f9fafb;
-            --dock-icon-bg: rgba(229, 231, 235, 0.7); /* A solid light grey */
+            /* Colorful background and liquid glass effect for light mode */
+            background: #f9f9f9; /* Fallback solid color */
+            background-image:
+                radial-gradient(at 20% 20%, hsla(210, 80%, 85%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 80% 10%, hsla(28, 100%, 74%, 0.3) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, hsla(340, 80%, 80%, 0.3) 0px, transparent 50%),
+                radial-gradient(at 10% 90%, hsla(190, 80%, 80%, 0.4) 0px, transparent 50%);
+            
+            --glass-color: rgba(255, 255, 255, 0.5); /* More transparent glass */
+            --glass-border: rgba(255, 255, 255, 0.2); /* Frosted edge effect */
+            --text-primary: #1d1d1f;
+            --text-secondary: #3c3c43;
+            --dock-icon-bg: rgba(255, 255, 255, 0.4);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top left, var(--background-start) 0%, var(--background-end) 100%);
+             /* Default to dark mode gradient with aurora */
+            background-color: #0a0a0a;
+            background-image:
+                radial-gradient(at 20% 20%, hsla(210, 80%, 85%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 10%, hsla(28, 100%, 74%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, hsla(340, 80%, 80%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 10% 90%, hsla(190, 80%, 80%, 0.2) 0px, transparent 50%),
+                radial-gradient(circle at top left, #0a0a0a 0%, #1f1f1f 100%);
             color: var(--text-primary);
             overflow-x: hidden;
-            transition: background 0.3s ease;
+            transition: background 0.5s ease;
+            background-attachment: fixed; /* Keep background stationary for glass effect */
         }
 
         /* Aura Glass Effect */
@@ -72,10 +82,6 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
-        }
-        
-        body.light .project-card-glow {
-             background: radial-gradient(circle at var(--glowX) var(--glowY), rgba(59, 130, 246, 0.15), transparent 50%);
         }
 
         .project-card:hover .project-card-glow {
@@ -112,7 +118,7 @@
         }
 
         /* Resume Creator Input Styling */
-        .rc-input, .rc-select {
+        .rc-input, .rc-select, .rc-file-label {
             width: 100%;
             margin-top: 0.25rem;
             padding: 0.75rem;
@@ -121,6 +127,14 @@
             border: 1px solid var(--glass-border);
             color: var(--text-primary);
             transition: all 0.3s ease;
+        }
+        .rc-file-label {
+            display: block;
+            cursor: pointer;
+            text-align: center;
+        }
+        .rc-file-label:hover {
+             background-color: rgba(255,255,255,0.1);
         }
         .rc-select {
             -webkit-appearance: none;
@@ -133,9 +147,12 @@
         body.light .rc-select {
              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233C3C43' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
         }
-        .rc-input::placeholder, .rc-select {
+        .rc-input::placeholder, .rc-select, .rc-file-label {
             color: var(--text-secondary);
             opacity: 0.7;
+        }
+        body.light .rc-input::placeholder, body.light .rc-select, body.light .rc-file-label {
+             color: var(--text-secondary);
         }
         .rc-input:focus, .rc-select:focus {
             outline: none;
@@ -156,7 +173,10 @@
         
         /* Resume Preview Styles */
         #resume-preview-container {
-            background-color: #f3f4f6;
+            background-color: #e5e7eb;
+        }
+        body.dark #resume-preview-container {
+            background-color: #374151;
         }
         #resume-preview {
             font-family: Arial, sans-serif;
@@ -200,10 +220,23 @@
         #mobile-menu {
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* CV Preview Tile Style */
+        .cv-preview-tile {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            max-width: 100%;
+            margin: 0 auto;
+            transform: scale(1);
+            transform-origin: top;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header class="glass-pane fixed top-0 left-0 right-0 z-50 h-20">
         <div class="flex items-center justify-between w-full h-full max-w-5xl mx-auto px-4 sm:px-8">
             <a href="#" class="font-bold text-xl text-primary">Hani Bin Faisal Ahammad</a>
@@ -229,6 +262,7 @@
         </div>
     </header>
 
+    <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 z-40 glass-pane transform translate-x-full md:hidden">
         <nav class="flex flex-col items-center justify-center h-full gap-8 text-xl font-medium text-primary">
             <a href="#storyline" class="mobile-nav-link">My Journey</a>
@@ -241,6 +275,7 @@
     </div>
 
     <main class="w-full max-w-4xl mx-auto pt-24 md:pt-28 pb-28 px-4 sm:px-6">
+        <!-- Hero Section -->
         <section class="text-center py-8 sm:py-16">
             <button id="profile-card" class="glass-pane p-4 rounded-3xl w-40 h-40 mb-4 sm:w-48 sm:h-48 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black transition-transform duration-200 hover:scale-105 active:scale-95">
                  <img src="assets/main.png" alt="Hani Bin Faisal Ahammad" class="rounded-2xl w-full h-full object-cover pointer-events-none">
@@ -250,6 +285,7 @@
         </section>
 
         <div class="grid grid-cols-1 md:grid-cols-2 md:gap-16 items-start">
+            <!-- My Journey / Timeline -->
             <section id="storyline" class="my-10 scroll-mt-24">
                 <div class="glass-pane rounded-3xl p-6 lg:p-8">
                     <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">My Journey</h2>
@@ -278,6 +314,7 @@
                 </div>
             </section>
 
+            <!-- Projects Section -->
             <section id="projects" class="my-10 scroll-mt-24">
                  <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">Projects</h2>
                 <div class="grid grid-cols-2 gap-4">
@@ -309,6 +346,7 @@
             </section>
         </div>
 
+        <!-- Hobbies Section -->
         <section id="hobbies" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6">
                 <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Hobbies</h2>
@@ -329,6 +367,7 @@
             </div>
         </section>
         
+        <!-- Achievements & Skills Section -->
         <section id="achievements" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6">
                 <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Achievements & Skills</h2>
@@ -393,6 +432,7 @@
             </div>
         </section>
 
+        <!-- Resume Section -->
         <section id="resume" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6 text-center">
                 <h3 class="text-2xl font-bold mb-2 text-primary">View My CV</h3>
@@ -404,6 +444,7 @@
             </div>
         </section>
 
+        <!-- Contact Section -->
         <section id="connect" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6 text-center">
                 <h3 class="text-2xl font-bold mb-2 text-primary">Let's Connect</h3>
@@ -415,6 +456,7 @@
         </section>
     </main>
     
+    <!-- Dock -->
     <footer class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
         <div class="glass-pane rounded-3xl flex items-center justify-center gap-2 sm:gap-4 px-4 py-2">
             <a href="https://github.com/Hani-Bin-Faisal-Ahammad" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-github text-primary" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
@@ -425,6 +467,7 @@
     </footer>
 
 
+    <!-- About Me Modal -->
     <div id="about-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
         <div class="modal-content glass-pane w-full max-w-md p-8 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0">
@@ -442,6 +485,7 @@
         </div>
     </div>
     
+    <!-- Hobbies Modals -->
     <div id="anime-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
         <div class="modal-content glass-pane w-full max-w-md p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0">
@@ -484,6 +528,7 @@
         </div>
     </div>
 
+    <!-- wa.me Link Creator Modal -->
     <div id="wame-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
         <div class="modal-content glass-pane w-full max-w-md p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0">
@@ -509,6 +554,66 @@
         </div>
     </div>
     
+    <!-- Resume Preview Modal -->
+    <div id="resume-preview-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
+        <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
+        <div class="modal-content glass-pane w-full max-w-2xl p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0 text-center">
+            <button class="modal-close-btn absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+            <h3 class="text-xl font-bold text-primary mb-4">Resume Template</h3>
+            <p class="text-sm text-secondary mb-6">Here's a preview of the clean, professional resume you can create. Click below to start building your own.</p>
+            
+            <div class="cv-preview-tile text-left text-black" style="font-family: Arial, sans-serif; font-size: 10px; line-height: 1.4;">
+                <div class="text-center pb-2 mb-2">
+                    <h1 class="text-2xl font-bold">Hani Bin Faisal Ahammad</h1>
+                </div>
+                <div class="grid grid-cols-2 gap-x-4 text-xs mb-2 border-b-2 border-black pb-2">
+                    <div class="space-y-1">
+                        <p><strong>♂</strong> Male</p>
+                        <p><strong>📞</strong> +973 35xx xxxx</p>
+                        <p><strong>💼</strong> hani-bin-faisal-ahammad</p>
+                    </div>
+                    <div class="space-y-1 text-right">
+                        <p><strong>🎂</strong> 22nd Decexxxx 2005</p>
+                        <p><strong>📍</strong> Vadakara, Kozhikode, Kerala</p>
+                        <p><strong>✉️</strong> hanibinfaisalahaxxxxx@gmail.com</p>
+                    </div>
+                </div>
+
+                <h2 class="font-bold text-xs uppercase tracking-wider mt-2">Profile</h2>
+                <hr class="border-black my-1">
+                <div class="space-y-1 text-xs">
+                    <div class="h-2 bg-gray-300 rounded w-full"></div>
+                    <div class="h-2 bg-gray-300 rounded w-5/6"></div>
+                </div>
+
+                <h2 class="font-bold text-xs uppercase tracking-wider mt-3">Education</h2>
+                <hr class="border-black my-1">
+                <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                
+                <h2 class="font-bold text-xs uppercase tracking-wider mt-3">Technical Skills</h2>
+                <hr class="border-black my-1">
+                <div class="grid grid-cols-3 gap-x-4 text-xs">
+                     <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                     <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                     <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                     <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                     <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                     <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                </div>
+
+                 <h2 class="font-bold text-xs uppercase tracking-wider mt-3">Projects</h2>
+                <hr class="border-black my-1">
+                <div class="space-y-1 text-xs">
+                     <div class="h-2 bg-gray-300 rounded w-full mt-1"></div>
+                     <div class="h-2 bg-gray-300 rounded w-4/6 mt-1"></div>
+                </div>
+            </div>
+            
+            <button id="start-resume-creation-btn" class="mt-6 bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition-all">Create Your Resume</button>
+        </div>
+    </div>
+    
+    <!-- Resume Creator Modal -->
     <div id="resume-creator-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-0 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-content glass-pane w-full h-full p-4 sm:p-6 relative transition-all duration-300 ease-out transform scale-95 opacity-0 flex flex-col">
             <button class="modal-close-btn absolute top-4 right-4 w-10 h-10 rounded-full glass-pane flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 z-20"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
@@ -517,6 +622,7 @@
                 <button id="print-resume-btn" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors">Download PDF</button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow overflow-hidden">
+                <!-- Input Form -->
                 <div id="resume-form" class="flex flex-col gap-4 overflow-y-auto pr-2 pb-4">
                     <div data-rc-section="personal">
                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Personal Details</h4>
@@ -527,11 +633,8 @@
                     </div>
                     
                     <div class="mt-2">
-                        <div class="flex justify-between items-center">
-                            <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Profile / Summary</h4>
-                            <span id="summary-word-count" class="text-xs text-secondary">0 / 50 words</span>
-                        </div>
-                        <textarea data-rc="summary" rows="8" placeholder="A passionate and driven student..." class="rc-input"></textarea>
+                        <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Profile / Summary</h4>
+                        <textarea data-rc="summary" rows="4" placeholder="A passionate and driven student..." class="rc-input"></textarea>
                     </div>
 
                     <div class="flex justify-between items-center mt-2">
@@ -563,10 +666,25 @@
                         <button id="add-language-btn" class="add-btn">+</button>
                     </div>
                     <div id="language-entries" class="space-y-4"></div>
+
+                    <div class="mt-2">
+                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Declaration</h4>
+                         <textarea data-rc="declaration" rows="4" placeholder="I hereby declare that the information provided is true..." class="rc-input"></textarea>
+                    </div>
+                    
+                    <div class="mt-2">
+                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Signature</h4>
+                         <input type="text" data-rc="signatureName" placeholder="Your Name (for signature)" class="rc-input">
+                         <label for="signature-upload" class="rc-file-label">Upload Signature Image</label>
+                         <input type="file" id="signature-upload" class="hidden" accept="image/*">
+                         <p id="signature-filename" class="text-xs text-secondary mt-1 text-center"></p>
+                    </div>
                 </div>
-                <div id="resume-preview-container" class="bg-gray-200 rounded-lg overflow-y-auto">
+                <!-- Preview Area -->
+                <div id="resume-preview-container" class="rounded-lg overflow-y-auto">
                     <div id="resume-preview">
-                        </div>
+                        <!-- Generated resume will appear here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -634,7 +752,7 @@
             });
 
             // --- MODAL LOGIC ---
-            const setupModal = (triggerId, modalId) => {
+            const setupModal = (triggerId, modalId, options = {}) => {
                 const trigger = document.getElementById(triggerId);
                 const modal = document.getElementById(modalId);
                 if (!trigger || !modal) return;
@@ -643,6 +761,7 @@
                 const closeBtn = modal.querySelector('.modal-close-btn');
 
                 const openModal = () => {
+                    if (options.onOpen) options.onOpen();
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
                 };
@@ -657,15 +776,9 @@
                 trigger.addEventListener('click', openModal);
                 if(backdrop) backdrop.addEventListener('click', closeModal);
                 if(closeBtn) closeBtn.addEventListener('click', closeModal);
+                
+                modal.closeModal = closeModal;
             };
-
-            // Initialize all modals
-            setupModal('profile-card', 'about-modal');
-            setupModal('anime-tile', 'anime-modal');
-            setupModal('drawing-tile', 'drawing-modal');
-            setupModal('books-tile', 'books-modal');
-            setupModal('wame-tile', 'wame-modal');
-            setupModal('resume-creator-tile', 'resume-creator-modal');
 
             // --- WA.ME LINK CREATOR LOGIC ---
             const phoneInput = document.getElementById('wa-phone');
@@ -706,7 +819,8 @@
             // --- DYNAMIC RESUME CREATOR LOGIC ---
             const resumeForm = document.getElementById('resume-form');
             const printResumeBtn = document.getElementById('print-resume-btn');
-            
+            let signatureImageSrc = null;
+
             const createEntryHTML = (type) => {
                 const commonHTML = `<button class="remove-entry-btn absolute top-2 right-2 text-red-400 hover:text-red-600 text-xl font-bold">&times;</button>`;
                 switch(type) {
@@ -724,25 +838,25 @@
                         </div>`;
                     case 'experience':
                         return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry">${commonHTML}
+                            <input type="text" data-rc="job" placeholder="Project Title / Company" class="rc-input">
                             <input type="text" data-rc="dates" placeholder="July 2024 - Present" class="rc-input">
-                            <input type="text" data-rc="job" placeholder="Project Title" class="rc-input">
-                            <textarea data-rc="desc" placeholder="This project uses machine learning to predict..." rows="4" class="rc-input"></textarea>
+                            <textarea data-rc="desc" placeholder="Describe your project or responsibilities..." rows="4" class="rc-input"></textarea>
                         </div>`;
                     case 'education':
                          return `<div class="p-3 rounded-lg glass-pane space-y-2 relative entry">${commonHTML}
+                            <input type="text" data-rc="degree" placeholder="Degree (e.g., BBA)" class="rc-input">
+                            <input type="text" data-rc="school" placeholder="University Name" class="rc-input">
                             <input type="text" data-rc="dates" placeholder="Sept 2024 - 2026" class="rc-input">
-                            <input type="text" data-rc="degree" placeholder="Bachelor of Business Administration" class="rc-input">
-                            <input type="text" data-rc="school" placeholder="Manipal University Jaipur" class="rc-input">
-                             <input type="text" data-rc="location" placeholder="Jaipur, India" class="rc-input">
+                             <input type="text" data-rc="location" placeholder="City, Country" class="rc-input">
                         </div>`;
                     case 'techSkill':
                     case 'softSkill':
                         return `<div class="p-3 rounded-lg glass-pane relative entry flex gap-4 items-center">${commonHTML}
-                            <input type="text" data-rc="skillName" placeholder="Python" class="rc-input flex-grow">
+                            <input type="text" data-rc="skillName" placeholder="e.g., Python" class="rc-input flex-grow">
                         </div>`;
                     case 'language':
                         return `<div class="p-3 rounded-lg glass-pane relative entry flex gap-4 items-center">${commonHTML}
-                             <input type="text" data-rc="langName" placeholder="English" class="rc-input flex-grow">
+                             <input type="text" data-rc="langName" placeholder="e.g., English" class="rc-input flex-grow">
                              <div class="flex gap-1" data-rc="langLevel">
                                  ${[1,2,3,4,5].map(i => `<button data-level="${i}" class="h-3 w-3 rounded-full bg-gray-500/50 proficiency-dot-btn"></button>`).join('')}
                             </div>
@@ -757,8 +871,8 @@
                     container.insertAdjacentHTML('beforeend', createEntryHTML(type));
                 }
             };
-            
-            const handleFormClick = (e) => {
+
+            const handleFormEvents = (e) => {
                 if (e.target.classList.contains('remove-entry-btn')) {
                     e.target.closest('.entry').remove();
                 }
@@ -767,9 +881,7 @@
                     const level = parseInt(e.target.dataset.level);
                     const dots = e.target.parentElement.querySelectorAll('.proficiency-dot-btn');
                     const currentLevel = e.target.parentElement.dataset.levelValue;
-
                     const newLevel = (currentLevel == level) ? 0 : level;
-
                     dots.forEach((dot, index) => {
                         dot.classList.toggle('bg-blue-500', index < newLevel);
                         dot.classList.toggle('bg-gray-500/50', index >= newLevel);
@@ -781,258 +893,104 @@
             
             const generateResumePreview = () => {
                 if (!resumeForm) return;
+                const preview = document.getElementById('resume-preview');
+                const getInputValue = (selector) => resumeForm.querySelector(selector)?.value || '';
 
                 const data = {
-                    personal: {},
-                    details: [],
-                    experience: [],
-                    education: [],
-                    techSkills: [],
-                    softSkills: [],
-                    languages: []
+                    name: getInputValue('[data-rc="name"]'),
+                    title: getInputValue('[data-rc="title"]'),
+                    summary: getInputValue('[data-rc="summary"]'),
+                    declaration: getInputValue('[data-rc="declaration"]'),
+                    signatureName: getInputValue('[data-rc="signatureName"]'),
+                    details: Array.from(document.querySelectorAll('#personal-details-entries .entry')).map(e => ({ type: e.querySelector('[data-rc="detailType"]').value, value: e.querySelector('[data-rc="detailValue"]').value })).filter(d => d.value),
+                    education: Array.from(document.querySelectorAll('#education-entries .entry')).map(e => ({ degree: e.querySelector('[data-rc="degree"]').value, school: e.querySelector('[data-rc="school"]').value, dates: e.querySelector('[data-rc="dates"]').value, location: e.querySelector('[data-rc="location"]').value })).filter(edu => edu.degree || edu.school),
+                    experience: Array.from(document.querySelectorAll('#experience-entries .entry')).map(e => ({ job: e.querySelector('[data-rc="job"]').value, dates: e.querySelector('[data-rc="dates"]').value, desc: e.querySelector('[data-rc="desc"]').value })).filter(exp => exp.job),
+                    techSkills: Array.from(document.querySelectorAll('#tech-skill-entries input')).map(i => i.value).filter(Boolean),
+                    softSkills: Array.from(document.querySelectorAll('#soft-skill-entries input')).map(i => i.value).filter(Boolean),
+                    languages: Array.from(document.querySelectorAll('#language-entries .entry')).map(e => ({ name: e.querySelector('[data-rc="langName"]').value, level: e.querySelector('[data-rc="langLevel"]').dataset.levelValue || 0 })).filter(l => l.name)
                 };
 
-                // Personal Details
-                data.personal.name = resumeForm.querySelector('[data-rc="name"]').value;
-                data.personal.title = resumeForm.querySelector('[data-rc="title"]').value;
-                data.personal.summary = resumeForm.querySelector('[data-rc="summary"]').value;
-                
-                // Dynamic Personal Details
-                document.querySelectorAll('#personal-details-entries .entry').forEach(entry => {
-                    data.details.push({
-                        type: entry.querySelector('[data-rc="detailType"]').value,
-                        value: entry.querySelector('[data-rc="detailValue"]').value
-                    });
-                });
-                
-                // Dynamic Entries
-                document.querySelectorAll('#experience-entries .entry').forEach(entry => {
-                    const exp = {};
-                    entry.querySelectorAll('input, textarea').forEach(el => exp[el.dataset.rc] = el.value);
-                    data.experience.push(exp);
-                });
-                 document.querySelectorAll('#education-entries .entry').forEach(entry => {
-                    const edu = {};
-                    entry.querySelectorAll('input').forEach(el => edu[el.dataset.rc] = el.value);
-                    data.education.push(edu);
-                });
-                document.querySelectorAll('#tech-skill-entries .entry').forEach(entry => {
-                    data.techSkills.push(entry.querySelector('[data-rc="skillName"]').value);
-                });
-                document.querySelectorAll('#soft-skill-entries .entry').forEach(entry => {
-                    data.softSkills.push(entry.querySelector('[data-rc="skillName"]').value);
-                });
-                document.querySelectorAll('#language-entries .entry').forEach(entry => {
-                     data.languages.push({
-                        name: entry.querySelector('[data-rc="langName"]').value,
-                        level: entry.querySelector('[data-rc="langLevel"]').dataset.levelValue || 0
-                    });
-                });
+                const detailIcons = { phone: '📱', email: '✉️', linkedin: '💼', github: '💻', website: '🌐', location: '📍' };
+                let html = `<div class="text-center"><h1>${data.name || 'Your Name'}</h1>`;
+                if(data.title) html += `<p class="text-gray-600">${data.title}</p>`;
 
-                // --- Build HTML ---
-                const preview = document.getElementById('resume-preview');
-                const p = data.personal;
-
-                const detailIcons = {
-                    phone: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>',
-                    email: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/></svg>',
-                    linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.325 0-1.934.716-2.261 1.256h.016l.016-.022V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>',
-                    github: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>',
-                    website: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/></svg>',
-                    location: '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>'
+                if(data.details.length > 0) {
+                     const midpoint = Math.ceil(data.details.length / 2);
+                     const dLeft = data.details.slice(0, midpoint).map(d => `<div class="flex items-center gap-2"><span>${detailIcons[d.type] || ''}</span> <span class="contact-link">${d.value}</span></div>`).join('');
+                     const dRight = data.details.slice(midpoint).map(d => `<div class="flex items-center gap-2"><span>${detailIcons[d.type] || ''}</span> <span class="contact-link">${d.value}</span></div>`).join('');
+                     html += `<div class="flex justify-between text-xs text-gray-700 mt-2"><div class="flex flex-col gap-1 items-start">${dLeft}</div><div class="flex flex-col gap-1 items-start">${dRight}</div></div>`;
                 }
+                html += `</div>`;
 
-                const detailsCount = data.details.filter(d => d.value).length;
-                const detailsMidpoint = Math.ceil(detailsCount / 2);
+                if(data.summary) html += `<div class="mt-4"><h2>PROFILE</h2><p class="section-content text-sm">${data.summary.replace(/\n/g, '<br>')}</p></div>`;
 
-                const contactInfoLeft = data.details.slice(0, detailsMidpoint).map(detail => {
-                    if (!detail.value) return '';
-                     return `<div class="flex items-center gap-2">
-                                 ${detailIcons[detail.type] || ''}
-                                 <span class="contact-link">${detail.value}</span>
-                             </div>`;
-                }).filter(Boolean).join('');
-
-                const contactInfoRight = data.details.slice(detailsMidpoint).map(detail => {
-                    if (!detail.value) return '';
-                     return `<div class="flex items-center gap-2">
-                                 ${detailIcons[detail.type] || ''}
-                                 <span class="contact-link">${detail.value}</span>
-                             </div>`;
-                }).filter(Boolean).join('');
-
-
-                let html = `<div class="text-center">
-                                 <h1>${p.name || 'Your Name'}</h1>
-                                 <div class="flex justify-between text-xs text-gray-700 mt-2">
-                                     <div class="flex flex-col gap-1 items-start">${contactInfoLeft}</div>
-                                     <div class="flex flex-col gap-1 items-start">${contactInfoRight}</div>
-                                 </div>
-                             </div>`;
-
-                if(p.summary) html += `<div class="mt-4"><h2>PROFILE</h2><p class="section-content text-sm">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
-
-                if(data.education.length > 0 && data.education[0].degree) {
+                if(data.education.length > 0) {
                      html += `<div class="mt-4"><h2>EDUCATION</h2>`;
-                     data.education.forEach(edu => {
-                         html += `<div class="flex justify-between mt-2">
-                                      <div>
-                                           <h3>${edu.school}</h3>
-                                           <p class="text-sm italic text-gray-700">${edu.degree}</p>
-                                      </div>
-                                      <div class="text-right">
-                                           <p class="text-sm font-semibold text-gray-600">${edu.dates}</p>
-                                           <p class="text-sm text-gray-600">${edu.location}</p>
-                                      </div>
-                                  </div>`;
-                     });
+                     data.education.forEach(edu => { html += `<div class="flex justify-between mt-2"><div><h3>${edu.school}</h3><p class="text-sm italic text-gray-700">${edu.degree}</p></div><div class="text-right"><p class="text-sm font-semibold text-gray-600">${edu.dates}</p><p class="text-sm text-gray-600">${edu.location}</p></div></div>`; });
                      html += `</div>`;
                 }
-
-                 if(data.techSkills.length > 0 && data.techSkills[0]) {
-                     html += `<div class="mt-4"><h2>TECHNICAL SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
-                     data.techSkills.forEach(skill => {
-                          if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
-                     });
-                     html += `</ul></div>`;
-                }
-                if(data.softSkills.length > 0 && data.softSkills[0]) {
-                     html += `<div class="mt-4"><h2>SOFT SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
-                     data.softSkills.forEach(skill => {
-                          if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
-                     });
-                     html += `</ul></div>`;
-                }
                 
-                if (data.languages.length > 0 && data.languages[0].name) {
-                     html += `<div class="mt-4"><h2>LANGUAGES</h2><div class="flex gap-x-8 gap-y-2 mt-2">`;
-                     data.languages.forEach(lang => {
-                          if (lang.name) html += `<div class="flex items-center gap-2"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
-                     });
-                     html += `</div></div>`;
-                }
-                
-                if(data.experience.length > 0 && data.experience[0].job) {
+                if(data.experience.length > 0) {
                      html += `<div class="mt-4"><h2>PROJECTS</h2>`;
-                     data.experience.forEach(exp => {
-                         html += `<div class="mt-2">
-                                      <div class="flex justify-between">
-                                         <h3>${exp.job}</h3>
-                                         <p class="text-sm font-semibold text-gray-600">${exp.dates}</p>
-                                      </div>
-                                      <p class="text-sm mt-1 text-gray-600">${exp.desc.replace(/\n/g, '<br>')}</p>
-                                  </div>`;
-                     });
+                     data.experience.forEach(exp => { html += `<div class="mt-2"><div class="flex justify-between"><h3>${exp.job}</h3><p class="text-sm font-semibold text-gray-600">${exp.dates}</p></div><p class="text-sm mt-1 text-gray-600">${exp.desc.replace(/\n/g, '<br>')}</p></div>`; });
                      html += `</div>`;
                 }
 
-                html += `<div class="mt-4"><h2>DECLARATION</h2><p class="text-sm text-gray-700">I declare that the information presented in this resume is true and accurate to the best of my knowledge. I assure you that my experience, skills, and qualifications meet the requirements of the job.</p></div>`
+                if(data.techSkills.length > 0) html += `<div class="mt-4"><h2>TECHNICAL SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">${data.techSkills.map(s => `<li class="text-sm text-gray-800">${s}</li>`).join('')}</ul></div>`;
+                if(data.softSkills.length > 0) html += `<div class="mt-4"><h2>SOFT SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">${data.softSkills.map(s => `<li class="text-sm text-gray-800">${s}</li>`).join('')}</ul></div>`;
+                
+                if (data.languages.length > 0) {
+                     html += `<div class="mt-4"><h2>LANGUAGES</h2><div class="flex gap-x-8 gap-y-2 mt-2 flex-wrap">${data.languages.map(lang => `<div class="flex items-center gap-2"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`).join('')}</div></div>`;
+                }
 
-
+                if (data.declaration || signatureImageSrc || data.signatureName) {
+                    html += `<div class="mt-6">`;
+                    if(data.declaration) html += `<h2>DECLARATION</h2><p class="text-sm text-gray-700 mb-8">${data.declaration.replace(/\n/g, '<br>')}</p>`;
+                    html += `<div style="text-align: right; margin-top: 2rem;">`;
+                    if (signatureImageSrc) {
+                        html += `<img src="${signatureImageSrc}" alt="signature" style="max-height: 50px; display: block; margin-left: auto;">`;
+                    }
+                    if (data.signatureName) {
+                        html += `<p class="text-sm text-gray-800" style="padding-top: 5px; margin-top: 5px;">${data.signatureName}</p>`;
+                    }
+                    html += `</div></div>`;
+                }
+                
                 preview.innerHTML = html;
             };
 
-            const setDefaultResumeData = () => {
-                const form = document.getElementById('resume-form');
-                form.querySelector('[data-rc="name"]').value = "Hani Bin Faisal Ahammad";
-                form.querySelector('[data-rc="title"]').value = "AI & BBA Student";
-                
-                // Personal Details
-                const personalDetailsData = [
-                    { type: 'phone', value: '+973 35433013' },
-                    { type: 'email', value: 'hanibinfaisalahammad@gmail.com' },
-                    { type: 'linkedin', value: 'hani-bin-faisal-ahammad' },
-                    { type: 'github', value: 'Hani-Bin-Faisal-Ahammad' },
-                    { type: 'website', value: 'hanibinfaisalahammad.vercel.app' },
-                    { type: 'location', value: 'Vatakara, Kerala, India' }
-                ];
-                personalDetailsData.forEach(detail => {
-                    addEntry('personalDetail', 'personal-details-entries');
-                    const entry = form.querySelector('#personal-details-entries .entry:last-child');
-                    entry.querySelector('[data-rc="detailType"]').value = detail.type;
-                    entry.querySelector('[data-rc="detailValue"]').value = detail.value;
-                });
-
-                // Education Entries
-                ['Learn Logic AI', 'Manipal University Jaipur', 'The Indian School Bahrain'].forEach(school => addEntry('education', 'education-entries'));
-                const eduEntries = form.querySelectorAll('#education-entries .entry');
-                eduEntries[0].querySelector('[data-rc="dates"]').value = 'July 2024 - still pursuing';
-                eduEntries[0].querySelector('[data-rc="degree"]').value = 'AI and Machine Learning';
-                eduEntries[0].querySelector('[data-rc="school"]').value = 'Learn Logic AI';
-                eduEntries[0].querySelector('[data-rc="location"]').value = 'Manjeri, Malapuram, Kerala';
-                
-                eduEntries[1].querySelector('[data-rc="dates"]').value = 'September 2024 - 2026';
-                eduEntries[1].querySelector('[data-rc="degree"]').value = 'BBA';
-                eduEntries[1].querySelector('[data-rc="school"]').value = 'Manipal University Jaipur';
-                
-                eduEntries[2].querySelector('[data-rc="dates"]').value = 'March 2024';
-                eduEntries[2].querySelector('[data-rc="degree"]').value = 'Higher Secondary';
-                eduEntries[2].querySelector('[data-rc="school"]').value = 'The Indian School Bahrain';
-                eduEntries[2].querySelector('[data-rc="location"]').value = 'Isa Town, Bahrain';
-
-                // Project/Experience
-                addEntry('experience', 'experience-entries');
-                const expEntry = form.querySelector('#experience-entries .entry');
-                expEntry.querySelector('[data-rc="job"]').value = 'EDA of Used Cars';
-                expEntry.querySelector('[data-rc="desc"]').value = "This project uses machine learning to predict used car prices. It involves cleaning and analyzing a used car dataset, engineering new features, and training a model for price prediction. The goal is to build an accurate and robust model that can assist buyers, sellers, and businesses in the used car market.";
-
-
-                // Tech Skills
-                ['Python', 'Machine Learning', 'Digital Marketing', 'Video Editing', 'Deep Learning', 'Artificial Intelligence', 'MS Office', 'Photoshop'].forEach(skill => {
-                    addEntry('techSkill', 'tech-skill-entries');
-                    form.querySelector('#tech-skill-entries .entry:last-child [data-rc="skillName"]').value = skill;
-                });
-
-                // Soft Skills
-                ['Leadership', 'Problem Solving', 'Time Management', 'Adaptability', 'Teamwork', 'Perseverance', 'Stress Management', 'Professionalism'].forEach(skill => {
-                     addEntry('softSkill', 'soft-skill-entries');
-                    form.querySelector('#soft-skill-entries .entry:last-child [data-rc="skillName"]').value = skill;
-                });
-
-                // Languages
-                addEntry('language', 'language-entries');
-                const langEn = form.querySelector('#language-entries .entry:last-child');
-                langEn.querySelector('[data-rc="langName"]').value = 'English';
-                langEn.querySelector('[data-rc="langLevel"]').dataset.levelValue = 4;
-                langEn.querySelectorAll('.proficiency-dot-btn').forEach((d,i) => d.classList.toggle('bg-blue-500', i < 4));
-                
-                addEntry('language', 'language-entries');
-                const langHi = form.querySelector('#language-entries .entry:last-child');
-                langHi.querySelector('[data-rc="langName"]').value = 'Hindi';
-                langHi.querySelector('[data-rc="langLevel"]').dataset.levelValue = 3;
-                langHi.querySelectorAll('.proficiency-dot-btn').forEach((d,i) => d.classList.toggle('bg-blue-500', i < 3));
-
-                form.querySelector('[data-rc="summary"]').value = "Dedicated and enthusiastic AI student with a passion for machine learning and data science. Proficient in Python and eager to apply my skills to real-world problems. Is a creative and analytical thinker with a keen eye for detailed analytics. Possess excellent problem-solving and communication skills.";
-                handleSummaryInput();
+            const clearResumeForm = () => {
+                resumeForm.querySelectorAll('input, textarea').forEach(input => input.value = '');
+                resumeForm.querySelectorAll('#personal-details-entries, #education-entries, #experience-entries, #tech-skill-entries, #soft-skill-entries, #language-entries').forEach(container => container.innerHTML = '');
+                signatureImageSrc = null;
+                document.getElementById('signature-filename').textContent = '';
                 generateResumePreview();
             };
+            
+            // --- NEW MODAL FLOW ---
+            setupModal('profile-card', 'about-modal');
+            setupModal('anime-tile', 'anime-modal');
+            setupModal('drawing-tile', 'drawing-modal');
+            setupModal('books-tile', 'books-modal');
+            setupModal('wame-tile', 'wame-modal');
+            setupModal('resume-creator-tile', 'resume-preview-modal');
+            setupModal('start-resume-creation-btn', 'resume-creator-modal', { onOpen: clearResumeForm });
+            
+            const startResumeBtn = document.getElementById('start-resume-creation-btn');
+            if(startResumeBtn) {
+                 startResumeBtn.addEventListener('click', () => {
+                     const previewModal = document.getElementById('resume-preview-modal');
+                     if(previewModal && previewModal.closeModal) {
+                         previewModal.closeModal();
+                     }
+                 });
+            }
 
-            const handleSummaryInput = () => {
-                const summaryTextarea = resumeForm.querySelector('[data-rc="summary"]');
-                const wordCountSpan = document.getElementById('summary-word-count');
-                const MAX_WORDS = 50;
-
-                const text = summaryTextarea.value;
-                const words = text.trim().split(/\s+/).filter(Boolean);
-                let wordCount = words.length;
-
-                if (wordCount > MAX_WORDS) {
-                    const truncatedWords = words.slice(0, MAX_WORDS);
-                    summaryTextarea.value = truncatedWords.join(' ');
-                    wordCount = MAX_WORDS;
-                }
-
-                wordCountSpan.textContent = `${wordCount} / ${MAX_WORDS} words`;
-                wordCountSpan.style.color = wordCount >= MAX_WORDS ? 'var(--accent-color)' : 'var(--text-secondary)';
-                
-                generateResumePreview();
-            };
-
+            // --- EVENT LISTENERS FOR RESUME CREATOR ---
             if (resumeForm) {
-                resumeForm.addEventListener('input', generateResumePreview);
-                resumeForm.addEventListener('click', handleFormClick);
-                resumeForm.querySelector('[data-rc="summary"]').addEventListener('input', handleSummaryInput);
-
+                resumeForm.addEventListener('input', handleFormEvents);
+                resumeForm.addEventListener('click', handleFormEvents);
+                
                 document.getElementById('add-personal-detail-btn').addEventListener('click', () => addEntry('personalDetail', 'personal-details-entries'));
                 document.getElementById('add-experience-btn').addEventListener('click', () => addEntry('experience', 'experience-entries'));
                 document.getElementById('add-education-btn').addEventListener('click', () => addEntry('education', 'education-entries'));
@@ -1040,7 +998,21 @@
                 document.getElementById('add-soft-skill-btn').addEventListener('click', () => addEntry('softSkill', 'soft-skill-entries'));
                 document.getElementById('add-language-btn').addEventListener('click', () => addEntry('language', 'language-entries'));
                 
-                setDefaultResumeData();
+                const signatureUpload = document.getElementById('signature-upload');
+                signatureUpload.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            signatureImageSrc = event.target.result;
+                            document.getElementById('signature-filename').textContent = file.name;
+                            generateResumePreview();
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                generateResumePreview();
             }
 
             if(printResumeBtn){
@@ -1048,7 +1020,7 @@
                      const element = document.getElementById('resume-preview');
                      const opt = {
                        margin:       0.5,
-                       filename:     'Hani_Ahammad_Resume.pdf',
+                       filename:     'My_Resume.pdf',
                        image:        { type: 'jpeg', quality: 0.98 },
                        html2canvas:  { scale: 2, useCORS: true },
                        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
@@ -1086,3 +1058,4 @@
     </script>
 </body>
 </html>
+
