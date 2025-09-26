@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         :root {
             --background-start: #0a0a0a;
@@ -23,14 +23,14 @@
         }
         
         body.light {
-            --background-start: #f2f2f7;
-            --background-end: #e5e5ea;
-            --glass-color: rgba(247, 247, 247, 0.8);
-            --glass-border: rgba(0, 0, 0, 0.08);
-            --text-primary: #1d1d1f;
-            --text-secondary: rgba(60, 60, 67, 0.6);
-            --content-bg: #f9f9fb;
-            --dock-icon-bg: rgba(209, 213, 219, 0.5);
+            --background-start: #ffffff; /* Clean white start */
+            --background-end: #f0f4f8;   /* Subtle cool blue/grey end */
+            --glass-color: rgba(255, 255, 255, 0.6); /* Slightly more transparent glass */
+            --glass-border: rgba(59, 130, 246, 0.15); /* Border tinted with accent color */
+            --text-primary: #111827;     /* Deeper, more standard black for text */
+            --text-secondary: #4b5563;   /* A richer, more readable grey */
+            --content-bg: #f9fafb;
+            --dock-icon-bg: rgba(229, 231, 235, 0.7); /* A solid light grey */
         }
 
         body {
@@ -72,6 +72,10 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
+        }
+        
+        body.light .project-card-glow {
+             background: radial-gradient(circle at var(--glowX) var(--glowY), rgba(59, 130, 246, 0.15), transparent 50%);
         }
 
         .project-card:hover .project-card-glow {
@@ -119,7 +123,7 @@
             transition: all 0.3s ease;
         }
         .rc-select {
-             -webkit-appearance: none;
+            -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a3a3a3' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
@@ -200,7 +204,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header class="glass-pane fixed top-0 left-0 right-0 z-50 h-20">
         <div class="flex items-center justify-between w-full h-full max-w-5xl mx-auto px-4 sm:px-8">
             <a href="#" class="font-bold text-xl text-primary">Hani Bin Faisal Ahammad</a>
@@ -214,19 +217,18 @@
             </nav>
             <div class="flex items-center gap-2">
                  <button id="theme-toggle" class="w-10 h-10 rounded-full glass-pane flex items-center justify-center">
-                    <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm-2.12-10.607a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" clip-rule="evenodd" /></svg>
-                    <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
-                </button>
-                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-full glass-pane flex flex-col items-center justify-center gap-1.5">
-                    <span class="w-5 h-0.5 bg-primary transition-transform"></span>
-                    <span class="w-5 h-0.5 bg-primary transition-opacity"></span>
-                    <span class="w-5 h-0.5 bg-primary transition-transform"></span>
-                </button>
+                     <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 hidden" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm-2.12-10.607a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z" clip-rule="evenodd" /></svg>
+                     <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+                 </button>
+                 <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-full glass-pane flex flex-col items-center justify-center gap-1.5">
+                     <span class="w-5 h-0.5 bg-primary transition-transform"></span>
+                     <span class="w-5 h-0.5 bg-primary transition-opacity"></span>
+                     <span class="w-5 h-0.5 bg-primary transition-transform"></span>
+                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 z-40 glass-pane transform translate-x-full md:hidden">
         <nav class="flex flex-col items-center justify-center h-full gap-8 text-xl font-medium text-primary">
             <a href="#storyline" class="mobile-nav-link">My Journey</a>
@@ -239,7 +241,6 @@
     </div>
 
     <main class="w-full max-w-4xl mx-auto pt-24 md:pt-28 pb-28 px-4 sm:px-6">
-        <!-- Hero Section -->
         <section class="text-center py-8 sm:py-16">
             <button id="profile-card" class="glass-pane p-4 rounded-3xl w-40 h-40 mb-4 sm:w-48 sm:h-48 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black transition-transform duration-200 hover:scale-105 active:scale-95">
                  <img src="assets/main.png" alt="Hani Bin Faisal Ahammad" class="rounded-2xl w-full h-full object-cover pointer-events-none">
@@ -249,7 +250,6 @@
         </section>
 
         <div class="grid grid-cols-1 md:grid-cols-2 md:gap-16 items-start">
-            <!-- My Journey / Timeline -->
             <section id="storyline" class="my-10 scroll-mt-24">
                 <div class="glass-pane rounded-3xl p-6 lg:p-8">
                     <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">My Journey</h2>
@@ -278,7 +278,6 @@
                 </div>
             </section>
 
-            <!-- Projects Section -->
             <section id="projects" class="my-10 scroll-mt-24">
                  <h2 class="text-2xl font-bold text-primary mb-8 tracking-tight">Projects</h2>
                 <div class="grid grid-cols-2 gap-4">
@@ -310,7 +309,6 @@
             </section>
         </div>
 
-        <!-- Hobbies Section -->
         <section id="hobbies" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6">
                 <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Hobbies</h2>
@@ -331,7 +329,6 @@
             </div>
         </section>
         
-        <!-- Achievements & Skills Section -->
         <section id="achievements" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6">
                 <h2 class="text-2xl font-bold text-primary mb-6 tracking-tight">Achievements & Skills</h2>
@@ -396,7 +393,6 @@
             </div>
         </section>
 
-        <!-- Resume Section -->
         <section id="resume" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6 text-center">
                 <h3 class="text-2xl font-bold mb-2 text-primary">View My CV</h3>
@@ -408,7 +404,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="connect" class="my-10 scroll-mt-24">
             <div class="glass-pane rounded-3xl p-6 text-center">
                 <h3 class="text-2xl font-bold mb-2 text-primary">Let's Connect</h3>
@@ -420,7 +415,6 @@
         </section>
     </main>
     
-    <!-- Dock -->
     <footer class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
         <div class="glass-pane rounded-3xl flex items-center justify-center gap-2 sm:gap-4 px-4 py-2">
             <a href="https://github.com/Hani-Bin-Faisal-Ahammad" target="_blank" class="w-12 h-12 dock-icon rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-github text-primary" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
@@ -431,7 +425,6 @@
     </footer>
 
 
-    <!-- About Me Modal -->
     <div id="about-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
         <div class="modal-content glass-pane w-full max-w-md p-8 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0">
@@ -449,7 +442,6 @@
         </div>
     </div>
     
-    <!-- Hobbies Modals -->
     <div id="anime-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
         <div class="modal-content glass-pane w-full max-w-md p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0">
@@ -492,7 +484,6 @@
         </div>
     </div>
 
-    <!-- wa.me Link Creator Modal -->
     <div id="wame-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-backdrop absolute inset-0 bg-black/50" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
         <div class="modal-content glass-pane w-full max-w-md p-6 rounded-[28px] relative transition-all duration-300 ease-out transform scale-95 opacity-0">
@@ -518,7 +509,6 @@
         </div>
     </div>
     
-    <!-- Resume Creator Modal -->
     <div id="resume-creator-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center p-0 transition-opacity duration-300 ease-out opacity-0 pointer-events-none">
         <div class="modal-content glass-pane w-full h-full p-4 sm:p-6 relative transition-all duration-300 ease-out transform scale-95 opacity-0 flex flex-col">
             <button class="modal-close-btn absolute top-4 right-4 w-10 h-10 rounded-full glass-pane flex items-center justify-center text-secondary hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 z-20"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
@@ -527,7 +517,6 @@
                 <button id="print-resume-btn" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors">Download PDF</button>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow overflow-hidden">
-                <!-- Input Form -->
                 <div id="resume-form" class="flex flex-col gap-4 overflow-y-auto pr-2 pb-4">
                     <div data-rc-section="personal">
                         <h4 class="text-lg font-semibold text-primary border-b border-[var(--glass-border)] pb-2">Personal Details</h4>
@@ -575,11 +564,9 @@
                     </div>
                     <div id="language-entries" class="space-y-4"></div>
                 </div>
-                <!-- Preview Area -->
                 <div id="resume-preview-container" class="bg-gray-200 rounded-lg overflow-y-auto">
                     <div id="resume-preview">
-                        <!-- Generated resume will appear here -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -598,16 +585,15 @@
             const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
             
             // --- THEME TOGGLE LOGIC ---
-            // This function now shows the icon representing the CURRENT theme.
             const applyTheme = (theme) => {
                 if (theme === 'light') {
                     document.body.classList.add('light');
-                    sunIcon.classList.remove('hidden'); // Show sun in light mode
+                    sunIcon.classList.remove('hidden');
                     moonIcon.classList.add('hidden');
                 } else {
                     document.body.classList.remove('light');
                     sunIcon.classList.add('hidden');
-                    moonIcon.classList.remove('hidden'); // Show moon in dark mode
+                    moonIcon.classList.remove('hidden');
                 }
             };
 
@@ -617,8 +603,7 @@
             if (savedTheme) {
                 applyTheme(savedTheme);
             } else {
-                 // Set initial theme based on system preference
-                applyTheme(prefersLight ? 'light' : 'dark');
+                 applyTheme(prefersLight ? 'light' : 'dark');
             }
 
             themeToggle.addEventListener('click', () => {
@@ -635,7 +620,6 @@
                 mobileMenu.classList.toggle('translate-x-0', !isMenuOpen);
                 document.body.style.overflow = isMenuOpen ? '' : 'hidden';
 
-                // Hamburger icon animation
                 const spans = mobileMenuBtn.querySelectorAll('span');
                 spans[0].classList.toggle('rotate-45', !isMenuOpen);
                 spans[0].classList.toggle('translate-y-2', !isMenuOpen);
@@ -665,7 +649,6 @@
 
                 const closeModal = () => {
                     modal.classList.remove('active');
-                    // Only restore body scroll if no other modals are active
                     if (!document.querySelector('.modal.active')) {
                         document.body.style.overflow = '';
                     }
@@ -865,27 +848,27 @@
                 const contactInfoLeft = data.details.slice(0, detailsMidpoint).map(detail => {
                     if (!detail.value) return '';
                      return `<div class="flex items-center gap-2">
-                                ${detailIcons[detail.type] || ''}
-                                <span class="contact-link">${detail.value}</span>
-                            </div>`;
+                                 ${detailIcons[detail.type] || ''}
+                                 <span class="contact-link">${detail.value}</span>
+                             </div>`;
                 }).filter(Boolean).join('');
 
                 const contactInfoRight = data.details.slice(detailsMidpoint).map(detail => {
                     if (!detail.value) return '';
                      return `<div class="flex items-center gap-2">
-                                ${detailIcons[detail.type] || ''}
-                                <span class="contact-link">${detail.value}</span>
-                            </div>`;
+                                 ${detailIcons[detail.type] || ''}
+                                 <span class="contact-link">${detail.value}</span>
+                             </div>`;
                 }).filter(Boolean).join('');
 
 
                 let html = `<div class="text-center">
-                                <h1>${p.name || 'Your Name'}</h1>
-                                <div class="flex justify-between text-xs text-gray-700 mt-2">
-                                    <div class="flex flex-col gap-1 items-start">${contactInfoLeft}</div>
-                                    <div class="flex flex-col gap-1 items-start">${contactInfoRight}</div>
-                                </div>
-                            </div>`;
+                                 <h1>${p.name || 'Your Name'}</h1>
+                                 <div class="flex justify-between text-xs text-gray-700 mt-2">
+                                     <div class="flex flex-col gap-1 items-start">${contactInfoLeft}</div>
+                                     <div class="flex flex-col gap-1 items-start">${contactInfoRight}</div>
+                                 </div>
+                             </div>`;
 
                 if(p.summary) html += `<div class="mt-4"><h2>PROFILE</h2><p class="section-content text-sm">${p.summary.replace(/\n/g, '<br>')}</p></div>`;
 
@@ -893,54 +876,54 @@
                      html += `<div class="mt-4"><h2>EDUCATION</h2>`;
                      data.education.forEach(edu => {
                          html += `<div class="flex justify-between mt-2">
-                                     <div>
-                                         <h3>${edu.school}</h3>
-                                         <p class="text-sm italic text-gray-700">${edu.degree}</p>
-                                     </div>
-                                     <div class="text-right">
-                                         <p class="text-sm font-semibold text-gray-600">${edu.dates}</p>
-                                         <p class="text-sm text-gray-600">${edu.location}</p>
-                                     </div>
-                                 </div>`;
+                                      <div>
+                                           <h3>${edu.school}</h3>
+                                           <p class="text-sm italic text-gray-700">${edu.degree}</p>
+                                      </div>
+                                      <div class="text-right">
+                                           <p class="text-sm font-semibold text-gray-600">${edu.dates}</p>
+                                           <p class="text-sm text-gray-600">${edu.location}</p>
+                                      </div>
+                                  </div>`;
                      });
                      html += `</div>`;
                 }
 
                  if(data.techSkills.length > 0 && data.techSkills[0]) {
-                    html += `<div class="mt-4"><h2>TECHNICAL SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
-                    data.techSkills.forEach(skill => {
-                         if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
-                    });
-                    html += `</ul></div>`;
+                     html += `<div class="mt-4"><h2>TECHNICAL SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
+                     data.techSkills.forEach(skill => {
+                          if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
+                     });
+                     html += `</ul></div>`;
                 }
                 if(data.softSkills.length > 0 && data.softSkills[0]) {
-                    html += `<div class="mt-4"><h2>SOFT SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
-                    data.softSkills.forEach(skill => {
-                         if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
-                    });
-                    html += `</ul></div>`;
+                     html += `<div class="mt-4"><h2>SOFT SKILLS</h2><ul class="grid grid-cols-3 gap-x-4 gap-y-1 mt-2 list-disc list-inside">`;
+                     data.softSkills.forEach(skill => {
+                          if (skill) html += `<li class="text-sm text-gray-800">${skill}</li>`;
+                     });
+                     html += `</ul></div>`;
                 }
                 
                 if (data.languages.length > 0 && data.languages[0].name) {
-                    html += `<div class="mt-4"><h2>LANGUAGES</h2><div class="flex gap-x-8 gap-y-2 mt-2">`;
-                    data.languages.forEach(lang => {
-                         if (lang.name) html += `<div class="flex items-center gap-2"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
-                    });
-                    html += `</div></div>`;
+                     html += `<div class="mt-4"><h2>LANGUAGES</h2><div class="flex gap-x-8 gap-y-2 mt-2">`;
+                     data.languages.forEach(lang => {
+                          if (lang.name) html += `<div class="flex items-center gap-2"><p class="text-sm font-semibold text-gray-700">${lang.name}</p><div class="flex gap-1.5">${[1,2,3,4,5].map(i => `<span class="h-2.5 w-2.5 block rounded-full ${i <= lang.level ? 'bg-black' : 'bg-gray-300'}"></span>`).join('')}</div></div>`;
+                     });
+                     html += `</div></div>`;
                 }
                 
                 if(data.experience.length > 0 && data.experience[0].job) {
-                    html += `<div class="mt-4"><h2>PROJECTS</h2>`;
-                    data.experience.forEach(exp => {
+                     html += `<div class="mt-4"><h2>PROJECTS</h2>`;
+                     data.experience.forEach(exp => {
                          html += `<div class="mt-2">
-                                     <div class="flex justify-between">
-                                        <h3>${exp.job}</h3>
-                                        <p class="text-sm font-semibold text-gray-600">${exp.dates}</p>
-                                     </div>
-                                     <p class="text-sm mt-1 text-gray-600">${exp.desc.replace(/\n/g, '<br>')}</p>
-                                 </div>`;
-                    });
-                    html += `</div>`;
+                                      <div class="flex justify-between">
+                                         <h3>${exp.job}</h3>
+                                         <p class="text-sm font-semibold text-gray-600">${exp.dates}</p>
+                                      </div>
+                                      <p class="text-sm mt-1 text-gray-600">${exp.desc.replace(/\n/g, '<br>')}</p>
+                                  </div>`;
+                     });
+                     html += `</div>`;
                 }
 
                 html += `<div class="mt-4"><h2>DECLARATION</h2><p class="text-sm text-gray-700">I declare that the information presented in this resume is true and accurate to the best of my knowledge. I assure you that my experience, skills, and qualifications meet the requirements of the job.</p></div>`
@@ -1064,13 +1047,13 @@
                 printResumeBtn.addEventListener('click', () => {
                      const element = document.getElementById('resume-preview');
                      const opt = {
-                      margin:       0.5,
-                      filename:     'Hani_Ahammad_Resume.pdf',
-                      image:        { type: 'jpeg', quality: 0.98 },
-                      html2canvas:  { scale: 2, useCORS: true },
-                      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-                    };
-                    html2pdf().from(element).set(opt).save();
+                       margin:       0.5,
+                       filename:     'Hani_Ahammad_Resume.pdf',
+                       image:        { type: 'jpeg', quality: 0.98 },
+                       html2canvas:  { scale: 2, useCORS: true },
+                       jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                     };
+                     html2pdf().from(element).set(opt).save();
                 });
             }
 
